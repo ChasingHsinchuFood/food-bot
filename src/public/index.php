@@ -8,8 +8,7 @@
     $app = new \Slim\App;
 
     $app->get('/life-bot/term', function (Request $request, Response $response) {
-        $name = $request->getAttribute('name');
-        $response->getBody()->write("Hello, $name");
+        $response->getBody()->write("<h2>歡迎使用 life-bot 請遵守Facebook Messenger 條款</h2>");
 
         return $response;
     });
