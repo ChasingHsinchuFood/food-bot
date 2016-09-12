@@ -7,7 +7,7 @@
 
     $app = new \Slim\App;
 
-    $app -> get('/life-bot', function(Request $request, Response $response) {
+    $app -> get('/', function(Request $request, Response $response) {
         $response->getBody()->write("<h2>歡迎來到 life-bot ，請遵守 Facebook Messenger 使用條款</h2>");
     });
 
