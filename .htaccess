@@ -7,6 +7,6 @@ RewriteCond %{HTTP_HOST} ^peter-web.lionfree.net$ [NC,OR]
 
 RewriteCond %{HTTP_HOST} ^peter-web.lionfree.net$
 
-RewriteCond %{REQUEST_URI} !src/public/
+RewriteCond %{REQUEST_URI} !life-bot/src/public/
 
-RewriteRule (.*) /src/public/$1 [L]
+RewriteRule (.*) /life-bot/src/public/$1 [L]
