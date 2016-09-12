@@ -7,7 +7,7 @@
 
     $app = new \Slim\App;
 
-    $app -> get('/', function(Request $request, Response $response) {
+    $app -> get('/life-bot/src/public', function(Request $request, Response $response) {
         $response->getBody()->write("<h2>歡迎來到 life-bot ，請遵守 Facebook Messenger 使用條款</h2>");
     });
 
