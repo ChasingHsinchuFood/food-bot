@@ -1,5 +1,5 @@
 <?php
-    require "../../vendor/autoload.php";
+    require "../vendor/autoload.php";
 
     //require "../../helper/processmessage.php";
 
@@ -12,7 +12,7 @@
 
     $app = new \Slim\App;
 
-    $tokens = json_decode(file_get_contents("../../token/token.json"), true);
+    $tokens = json_decode(file_get_contents("../token/token.json"), true);
     $builder = new BotBuilder($tokens["token"], $tokens["page_token"]);
 
     $app->get('/life-bot/term', function (Request $request, Response $response) {
