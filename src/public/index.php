@@ -47,8 +47,8 @@
             $response->getBody()->write($message);
             return $response;
         }                                                                                                                  
-                                                                                                                                                               
-                                                                                                    
+
+        $process = new processMessage($message, $sender);                                                       
         $json = $process->processText();                                                                                                                 
                                                                                                                                                                
         $body = array();                                                                                                                                
