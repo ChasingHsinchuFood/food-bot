@@ -1,5 +1,5 @@
 <?php
-    class processMessage {
+    class ProcessMessage {
         public function __construct($message, $sender) {
             $this->message =  strtolower($message);
             $this->sender = $sender;
