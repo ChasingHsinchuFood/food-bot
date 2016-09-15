@@ -65,22 +65,22 @@
         $menus = array(                                                                                                             
             array(                                                                                                                                        
                 "type" => "postback",                                                                                                                     
-                "title" => "Help（幫助）",                                                                                                                  
+                "title" => "幫助",                                                                                                                  
                 "payload" => "NEED_YOUR_HELP"                                                                            
             ),                                                                                                                                            
             array(                                                                                                                                        
                 "type" => "postback",                                                                                                                     
-                "title" => "City lists for bus status（城市對照表,公車動態用）",                                                                                                              
+                "title" => "城市對照表,公車動態用",                                                                                                              
                 "payload" => "CITY_LISTS"                                                                                        
             ),
             array(
                 "type" => "postback",
-                "title" => "Give me a dog or cat（給我一隻狗或貓）",
+                "title" => "給我一隻狗或貓",
                 "payload" => "GIVE_ME_DOG_CAT"
             ),
             array(
                 "type" => "postback",
-                "title" => "Give me a useful command list（給我常用指令清單）",
+                "title" => "給我常用指令清單",
                 "payload" => "GIVE_ME_DOG_CAT"
             )
         );
