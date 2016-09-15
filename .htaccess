@@ -3,10 +3,10 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ /life-bot/src/public/index.php [L]
 
-RewriteCond %{HTTP_HOST} ^peter-web.lionfree.net$ [NC,OR]
+#RewriteCond %{HTTP_HOST} ^peter-web.lionfree.net$ [NC,OR]
 
-RewriteCond %{HTTP_HOST} ^peter-web.lionfree.net$
+#RewriteCond %{HTTP_HOST} ^peter-web.lionfree.net$
 
-RewriteCond %{REQUEST_URI} !life-bot/src/public/
+#RewriteCond %{REQUEST_URI} !life-bot/src/public/
 
-RewriteRule (.*) /life-bot/src/public/index.php [L]
+#RewriteRule (.*) /life-bot/src/public/index.php [L]
