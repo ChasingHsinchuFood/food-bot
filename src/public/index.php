@@ -30,7 +30,7 @@
     $app->post('/life-bot/webhook', function(Request $request, Response $response) {
         global $builder;                                                                                                                                   
         $data = $builder->receiveMsg();                                                                                                                  
-                                                                                                                                                               
+                                                                                                                          
         //get the graph sender id
         if(isset($data['entry'][0]['messaging'][0]['sender']['id']))                                                                                                                     
             $sender = $data['entry'][0]['messaging'][0]['sender']['id'];                                                                                       
@@ -49,6 +49,8 @@
             $response->getBody()->write($message);
             return $response;
         }                                                                                                                  
+
+        file_put_contents("./msg.txt", $message);
 
         $process = new ProcessMessage($message, $sender);                                                       
         $json = $process->processText();                                                                                                                 
