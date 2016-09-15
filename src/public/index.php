@@ -27,7 +27,7 @@
 
     $app->post('/life-bot/webhook', function(Request $request, Response $response) {
         global $builder;                                                                                                                                   
-        $data = $builder -> receiveMsg();                                                                                                                  
+        $data = $builder->receiveMsg();                                                                                                                  
                                                                                                                                                                
         //get the graph sender id
         if(isset($data['entry'][0]['messaging'][0]['sender']['id']))                                                                                                                     
@@ -49,7 +49,7 @@
         }                                                                                                                  
                                                                                                                                                                
                                                                                                     
-        $json = $process -> processText();                                                                                                                 
+        $json = $process->processText();                                                                                                                 
                                                                                                                                                                
         $body = array();                                                                                                                                
         $body["recipient"]["id"] = $sender;                                                                                                                
@@ -70,7 +70,7 @@
             ),                                                                                                                                            
             array(                                                                                                                                        
                 "type" => "postback",                                                                                                                     
-                "title" => "城市對照表,公車動態用",                                                                                                              
+                "title" => "城市對照表,公車動態用",                                                                                                     
                 "payload" => "city_lists"                                                                                        
             ),
             array(
@@ -85,7 +85,7 @@
             )
         );
 
-        $data = $builder -> addMenu($menus);
+        $data = $builder->addMenu($menus);
 
         if($data === true) {
             $response->getBody()->write("add-menu-success");
