@@ -45,6 +45,10 @@
                 else if(mb_stristr($this->message, "I have to book my ticket") != false || mb_stristr($this->message, "我需要訂票") != false) {
                     $json["message"]["text"] = "Ok! please upload the 'ticket.txt'. \n 好的，請上傳『訂票檔』。";
                 }
+                else if(mb_stristr($this->message, "_dog_cat") != false) {
+                    $json["message"]["attachment"]["type"] = "image";
+                    $json["message"]["attachment"]["payload"]["url"] = $this->processPostBack();
+                }
                 else if(mb_stristr($this->message, "_") != false) {
                     $json["message"]["text"] = $this->processPostBack();
                 }
