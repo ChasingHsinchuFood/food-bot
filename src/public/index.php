@@ -44,7 +44,7 @@
         }
         else {                                                                                                                                          
             $message = "not-find.";
-            $response->getBody()->write("add-menu-success");
+            $response->getBody()->write($message);
             return $response;
         }                                                                                                                  
                                                                                                                                                                
