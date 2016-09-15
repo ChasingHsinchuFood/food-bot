@@ -66,22 +66,22 @@
             array(                                                                                                                                        
                 "type" => "postback",                                                                                                                     
                 "title" => "幫助",                                                                                                                  
-                "payload" => "NEED_YOUR_HELP"                                                                            
+                "payload" => "need_your_help"                                                                            
             ),                                                                                                                                            
             array(                                                                                                                                        
                 "type" => "postback",                                                                                                                     
                 "title" => "城市對照表,公車動態用",                                                                                                              
-                "payload" => "CITY_LISTS"                                                                                        
+                "payload" => "city_lists"                                                                                        
             ),
             array(
                 "type" => "postback",
                 "title" => "給我一隻狗或貓",
-                "payload" => "GIVE_ME_DOG_CAT"
+                "payload" => "give_me_dog_cat"
             ),
             array(
                 "type" => "postback",
                 "title" => "給我常用指令清單",
-                "payload" => "GIVE_ME_DOG_CAT"
+                "payload" => "give_me_command_lists"
             )
         );
 

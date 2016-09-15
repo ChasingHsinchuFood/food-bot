@@ -9,7 +9,7 @@
             $json = array();
             $json["recipient"]["id"] = $this -> sender;
 
-            $needle = "Hello";
+            $needle = "hello";
 
             if(stristr($this -> message, $needle) != false) {
                 $json["message"]["text"] = "Hello! May I help you ? \n 嗨，有什麼事可以為你效勞的嘛？";
