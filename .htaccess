@@ -2,7 +2,7 @@ RewriteEngine On
 RewriteBase /life-bot/
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ public/$1 [L]
+RewriteRule ^(.*)$ public/index.php [L]
 
 #RewriteCond %{HTTP_HOST} ^peter-web.lionfree.net$ [NC,OR]
 
