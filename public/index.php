@@ -131,7 +131,11 @@
 
         $index = 1;
         foreach($cities as $key => $value) {
-            $message .= "<tr>";
+            if($index % 2 === 1)
+                $message .= "<tr class='pure-table-odd'>";
+            else
+                $message .= "<tr>";
+            
             foreach($value as $city => $en) {
                 $message .= "<td>" . $index . "</td>";
                 $message .= "<td>" . $city . "</td>";
