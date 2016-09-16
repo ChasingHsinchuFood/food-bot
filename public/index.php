@@ -150,7 +150,7 @@
         $name = $request->getAttribute("name");
         if(file_exists("css/" . $name)) {
             $newResponse = $response->withStatus(304);
-            $newResponse->withHeader('Contnet-Type', 'text/plain; charset=utf-8');
+            $newResponse->withHeader('Contnet-Type', 'text/css; charset=utf-8');
             $cssContent = file_get_contents("css/" . $name);
             $newResponse->getBody()->write($cssContent);
         }
