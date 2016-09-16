@@ -5,28 +5,36 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" href="/life-bot/bower_components/pure/pure-min.css">
+    <link rel="stylesheet" href="/life-bot/assets/css/side-menu.css">
 </head>
 <body>
-    <h1>城市對照清單</h1>
-    <table class="pure-table">
-    <thead>
-        <tr>
-            <th>編號</th>
-            <th>中文名稱</th>
-            <th>英文名稱</th>
-        </tr>
-    </thead>
-    <tbody>
+    <div id="layout">
+        <div id="main">
+        <div id="header">
+            <h1>城市對照清單</h1>
+            <h2>動態公車輸入城市名稱用</h2>
+        </div>
+        <div id="content">
+                <table class="pure-table">
+                    <thead>
+                        <tr>
+                           <th>編號</th>
+                           <th>中文名稱</th>
+                           <th>英文名稱</th>
+                        </tr>
+                    </thead>
+                    <tbody>
 
-    <?php
-        if(isset($data["cities"])) {
-            echo $data["cities"];
-        }
-    ?>
+                    <?php
+                        if(isset($data["cities"])) {
+                            echo $data["cities"];
+                        }
+                    ?>
 
-    </tbody>
-    </table>
-
-
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
