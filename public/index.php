@@ -61,8 +61,6 @@
 
         $res = $builder->sendMsg("texts", $data, $json);
 
-        file_put_contents("./res.txt", json_encode($json));
-
     });
 
     $app -> get('/life-bot/add/menus', function(Request $request, Response $response) {
