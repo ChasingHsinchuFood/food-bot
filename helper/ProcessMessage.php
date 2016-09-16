@@ -126,7 +126,7 @@
                 $dataLen = count($data) - 1;
                 srand();
                 $index = rand(0, $dataLen);
-                return $data[$index]["user"]["avatar_url"];
+                return $data[$index]["images"]["original"];
             }
             else {
                 return "https://valleytechnologies.net/wp-content/uploads/2015/07/error.png";
