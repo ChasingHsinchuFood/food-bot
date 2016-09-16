@@ -43,6 +43,7 @@
         }
         else if(isset($data['entry'][0]['messaging'][0]['postback'])) {
             $message = $data['entry'][0]['messaging'][0]['postback']['payload'];
+            file_put_contents("payload.txt", $message);
         }
         else {                                                                                                                                          
             $message = "not-find.";
