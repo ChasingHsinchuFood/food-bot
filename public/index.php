@@ -151,8 +151,9 @@
         if(file_exists("css/" . $name)) {
             $newResponse = $response->withStatus(304);
             $newResponse->withHeader('Contnet-Type', 'text/css; charset=utf-8');
-            $cssContent = file_get_contents("css/" . $name);
-            $newResponse->getBody()->write($cssContent);
+            $newStream = new \GuzzleHttp\Psr7\LazyOpenStream('css/' . $name, 'r');
+            $newResponse->withBody($newStream);
+            //$newResponse->getBody()->write($cssContent);
         }
         else {
             $newResponse = $response->withStatus(404);
