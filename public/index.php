@@ -12,7 +12,7 @@
 
     use \GuzzleHttp\Client;
 
-    $container = $app->getContainer();
+    $container = new \Slim\Container();
 
     $container['notFoundHandler'] = function ($container) {
         return function ($request, $response) use ($container) {
@@ -22,8 +22,6 @@
                 ->write('<h2>Page not found</h2><h2>找不到頁面</h2>');
         };
     };
-
-    $app = new \Slim\App($container);
     
     $container['view'] = new \Slim\Views\PhpRenderer("../templates/");
 
@@ -33,6 +31,8 @@
         $logger->pushHandler($file_handler);
         return $logger;
     };
+
+    $app = new \Slim\App($container);
 
     $tokens = json_decode(file_get_contents("../token/token.json"), true);
     $builder = new BotBuilder($tokens["token"], $tokens["page_token"]);
