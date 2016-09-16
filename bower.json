@@ -1,0 +1,7 @@
+{
+	"name": "life-bot",
+	"version": "0.0.1",
+	"dependencies": {
+		"pure": "^0.6"
+	}
+}
