@@ -120,11 +120,17 @@
             $client = new Client();
             $response = $client->request("GET", $url);
             $json = json_decode($response->getBody(). true);
-            $data = $json["data"];
-            file_put_contents("./res.txt", $response->getBody());
-            $dataLen = count($data);
-            $index = rand(0, $dataLen);
-            return $data[$index]["url"];
+
+            if($json["meta"]["status"] == 200) {
+                $data = $json["data"];
+                $dataLen = count($data);
+                $index = rand(0, $dataLen);
+                file_put_contents("./res.txt", $data[$index]["url"]);
+                return $data[$index]["url"];
+            }
+            else {
+                return "https://valleytechnologies.net/wp-content/uploads/2015/07/error.png";
+            }
         }
 
     }
