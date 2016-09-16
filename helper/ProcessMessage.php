@@ -52,7 +52,8 @@
                     $json["message"]["attachment"]["payload"]["url"] = $this->processPostBack();
                 }
                 else if(mb_stristr($this->message, "_") != false) {
-                    $json["message"]["text"] = $this->processPostBack();
+                    $msg = $this->processPostBack();
+                    $json["message"]["text"] = $msg;
                 }
                 else {
                     $json["message"]["text"] = "Sorry, this service is not available! \n 很抱歉，你說的這項服務我無法完成！";
@@ -63,21 +64,13 @@
         }
 
         public function processPostBack() {
-            $message = "";
+            $message = "城市清單在下列網址：\n";
 
             if($this->message === "need_your_help") {
 
             }
             else if($this->message === "city_lists") {
-                $json = file_get_contents("../places/cities.json");                                                                                                       
-                $json = json_decode($json, true);                                                                                                                      
-                $cities = $json["cities"];
-                                                                                                                                     
-                foreach($cities as $key => $value) {                                                                                                      
-                    foreach($value as $city => $en) {
-                        $message .= $city . "," . $en  . "\n";                                                                                                        
-                    }                                                                                                                                              
-                }
+                $message = "https://peter-web.lionfree.net/life-bot/city_lists";
             }
             else if($this->message === "give_me_dog_cat") {
                 srand();

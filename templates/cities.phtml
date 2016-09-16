@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Example Application</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+</head>
+<body>
+    <h1>城市對照清單</h1>
+    <table class="pure-table">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>編號</th>
+            <th>中文名稱</th>
+            <th>英文名稱</th>
+        </tr>
+    </thead>
+    <tbody>
+
+    <?php
+        if(isset($data["cities"])) {
+            echo $data["cities"];
+        }
+    ?>
+
+    </tbody>
+    </table>
+
+
+</body>
+</html>

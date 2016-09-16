@@ -12,6 +12,10 @@
 
     $app = new \Slim\App;
 
+    $container = $app->getContainer();
+    
+    $container['view'] = new \Slim\Views\PhpRenderer("../templates/");
+
     $tokens = json_decode(file_get_contents("../token/token.json"), true);
     $builder = new BotBuilder($tokens["token"], $tokens["page_token"]);
 
@@ -63,7 +67,7 @@
 
     });
 
-    $app -> get('/life-bot/add/menus', function(Request $request, Response $response) {
+    $app->get('/life-bot/add/menus', function(Request $request, Response $response) {
         global $builder;
         $menus = array(                                                                                                             
             array(                                                                                                                                        
@@ -99,6 +103,29 @@
         }
 
         return $response;
+    });
+
+    $app -> get('/life-bot/city_lists', function(Request $request, Response $response) {
+        $json = file_get_contents("../places/cities.json");                                                                                                       
+        $json = json_decode($json, true);                                                                                                                      
+        $cities = $json["cities"];
+        $message = "";
+
+        foreach($cities as $key => $value) {
+            $message .= "<tr>";
+            foreach($value as $city => $en) {
+                $message .= "<td>" . $city . "</td>";
+                $message .= "<td>" . $en . "</td>";                                                                                    
+            }
+            $message .= "</tr>";                                                                
+        }
+        
+        $this->logger->addInfo("Ticket list");
+        $cities = $message;
+        $response = $this->view->render($response, "cities.phtml", ["cities" => $cities]);
+        
+        return $response;
+
     });
 
     $app->run();
