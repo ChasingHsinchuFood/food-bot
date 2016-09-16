@@ -149,18 +149,18 @@
     $app->get('/life-bot/css/{name}', function(Request $request, Response $response) {
         $name = $request->getAttribute("name");
         if(file_exists("css/" . $name)) {
-            $response->withStatus(200);
-            $response->withHeader('Contnet-Type', 'text/plain; charset=utf-8');
+            $newResponse = $response->withStatus(200);
+            $newResponse->withAddedHeader('Contnet-Type', 'text/plain; charset=utf-8');
             $cssContent = file_get_contents("css/" . $name);
-            $response->getBody()->write($cssContent);
-            return $response;
+            $newResponse->getBody()->write($cssContent);
         }
         else {
             $newResponse = $response->withStatus(404);
-            $newResponse->withHeader('Contnet-Type', 'text/html; charset=utf-8');
+            $newResponse->withAddedHeader('Contnet-Type', 'text/html; charset=utf-8');
             $newResponse->getBody()->write('file not found');
-            return $newResponse;
         }
+
+        return $newResponse;
 
     });
 
