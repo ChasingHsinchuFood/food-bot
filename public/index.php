@@ -12,9 +12,18 @@
 
     use \GuzzleHttp\Client;
 
-    $app = new \Slim\App;
-
     $container = $app->getContainer();
+
+    $container['notFoundHandler'] = function ($container) {
+        return function ($request, $response) use ($container) {
+            return $container['response']
+                ->withStatus(404)
+                ->withHeader('Content-Type', 'text/html')
+                ->write('<h2>Page not found</h2><h2>找不到頁面</h2>');
+        };
+    };
+
+    $app = new \Slim\App($container);
     
     $container['view'] = new \Slim\Views\PhpRenderer("../templates/");
 
@@ -114,7 +123,7 @@
         return $response;
     });
 
-    $app -> get('/life-bot/city_lists', function(Request $request, Response $response) {
+    $app->get('/life-bot/city_lists', function(Request $request, Response $response) {
         $json = file_get_contents("../places/cities.json");                                                                                                       
         $json = json_decode($json, true);                                                                                                                 
         $cities = $json["cities"];
@@ -135,6 +144,19 @@
         
         return $response;
 
+    });
+
+    $app->get('/life-bot/css/{name}', function(Request $request, Response $response) {
+        $name = $request->getAttribute("name");
+        if(file_exists("css/" . $name)) {
+            $response->withStatus(200);
+            $response->withAddedHeader('Contnet-Type', 'text/plain');
+        }
+        else {
+            $response->withStatus(404);
+        }
+
+        return $response;
     });
 
     $app->run();
