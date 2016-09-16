@@ -56,6 +56,7 @@ The content `<div>` is where all your content goes.
     .header h1 {
         margin: 0.2em 0;
         font-size: 3em;
+	font-family: 'cwTeXHei', serif;
         font-weight: 300;
     }
      .header h2 {
@@ -71,7 +72,16 @@ The content `<div>` is where all your content goes.
     color: #888;
 }
 
-
+@font-face {
+  font-family: 'cwTeXHei';
+  font-style: normal;
+  font-weight: 500;
+  src: url(//fonts.gstatic.com/ea/cwtexhei/v3/cwTeXHei-zhonly.eot);
+  src: url(//fonts.gstatic.com/ea/cwtexhei/v3/cwTeXHei-zhonly.eot?#iefix) format('embedded-opentype'),
+       url(//fonts.gstatic.com/ea/cwtexhei/v3/cwTeXHei-zhonly.woff2) format('woff2'),
+       url(//fonts.gstatic.com/ea/cwtexhei/v3/cwTeXHei-zhonly.woff) format('woff'),
+       url(//fonts.gstatic.com/ea/cwtexhei/v3/cwTeXHei-zhonly.ttf) format('truetype');
+}
 
 /*
 The `#menu` `<div>` is the parent `<div>` that contains the `.pure-menu` that
@@ -142,6 +152,7 @@ appears on the left side of the page.
     */
     #menu .pure-menu-heading {
         font-size: 110%;
+	font-family: 'cwTeXHei', serif;
         color: #fff;
         margin: 0;
     }
@@ -165,6 +176,7 @@ small screens.
     background: #000;
     background: rgba(0,0,0,0.7);
     font-size: 10px; /* change this value to increase/decrease button size */
+    font-family: 'cwTeXHei', serif;
     z-index: 10;
     width: 2em;
     height: auto;
