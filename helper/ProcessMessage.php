@@ -119,13 +119,14 @@
             $url = "http://api.giphy.com/v1/gifs/search?q=funny+" . $animal . "&api_key=dc6zaTOxFJmzC";
             $client = new Client();
             $response = $client->request("GET", $url);
-            $json = json_decode($response->getBody(). true);
+            $json = json_decode($response->getBody(), true);
 
             if($json["meta"]["status"] == 200) {
                 $data = $json["data"];
                 $dataLen = count($data) - 1;
+                srand();
                 $index = rand(0, $dataLen);
-                file_put_contents("./res.txt", $data[0]["url"]);
+                file_put_contents("./res.txt", $data[$index]["url"]);
                 return $data[$index]["url"];
             }
             else {
