@@ -9,7 +9,7 @@
 
         public function processText() {
             $json = array();
-            $json["recipient"]["id"] = $this -> sender;
+            $json["recipient"]["id"] = $this->sender;
 
             $needle = "hello";
 

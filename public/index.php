@@ -59,7 +59,8 @@
 
         $builder->statusBubble($body);
         if(isset($json["message"]["attachment"]["type"])) {
-            $builder->sendMsg("images", $data, $json);
+            $res = $builder->sendMsg("images", $data, $json);
+            file_put_contents("res.txt", $res);
         }   
         else {                                                                               
             $builder->sendMsg("texts", $data, $json);
