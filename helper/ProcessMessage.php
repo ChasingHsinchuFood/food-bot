@@ -121,7 +121,7 @@
             $response = $client->request("GET", $url);
             $json = json_decode($response->getBody(). true);
             $data = $json["data"];
-            file_put_contents("./res.txt", $json);
+            file_put_contents("./res.txt", $response->getBody());
             $dataLen = count($data);
             $index = rand(0, $dataLen);
             return $data[$index]["url"];
