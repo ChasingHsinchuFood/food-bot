@@ -18,6 +18,13 @@
     
     $container['view'] = new \Slim\Views\PhpRenderer("../templates/");
 
+    $container['logger'] = function($c) {
+        $logger = new \Monolog\Logger('my_logger');
+        $file_handler = new \Monolog\Handler\StreamHandler("../logs/app.log");
+        $logger->pushHandler($file_handler);
+        return $logger;
+    };
+
     $tokens = json_decode(file_get_contents("../token/token.json"), true);
     $builder = new BotBuilder($tokens["token"], $tokens["page_token"]);
 
@@ -109,7 +116,7 @@
 
     $app -> get('/life-bot/city_lists', function(Request $request, Response $response) {
         $json = file_get_contents("../places/cities.json");                                                                                                       
-        $json = json_decode($json, true);                                                                                                                      
+        $json = json_decode($json, true);                                                                                                                 
         $cities = $json["cities"];
         $message = "";
 

@@ -70,7 +70,7 @@
 
             }
             else if($this->message === "city_lists") {
-                $message = "https://peter-web.lionfree.net/life-bot/city_lists";
+                $message .= "https://peter-web.lionfree.net/life-bot/city_lists";
             }
             else if($this->message === "give_me_dog_cat") {
                 srand();
