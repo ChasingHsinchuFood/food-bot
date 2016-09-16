@@ -61,7 +61,7 @@
 
         $res = $builder->sendMsg("texts", $data, $json);
 
-        file_put_contents("./res.txt", $res);
+        file_put_contents("./res.txt", json_encode($json));
 
     });
 
