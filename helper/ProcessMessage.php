@@ -123,9 +123,9 @@
 
             if($json["meta"]["status"] == 200) {
                 $data = $json["data"];
-                $dataLen = count($data);
+                $dataLen = count($data) - 1;
                 $index = rand(0, $dataLen);
-                file_put_contents("./res.txt", $data[$index]["url"]);
+                file_put_contents("./res.txt", $data[0]["url"]);
                 return $data[$index]["url"];
             }
             else {
