@@ -57,8 +57,13 @@
         $body["recipient"]["id"] = $sender;                                                                                                                
         $body["sender_action"] = "typing_on";
 
-        $builder->statusBubble($body);                                                                                           
-        $builder->sendMsg("texts", $data, $json);
+        $builder->statusBubble($body);
+        if(isset($json["message"]["attachment"]["type"])) {
+            $builder->sendMsg("images", $data, $json);
+        }   
+        else {                                                                               
+            $builder->sendMsg("texts", $data, $json);
+        }
 
     });
 
