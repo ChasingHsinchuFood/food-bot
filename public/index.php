@@ -146,25 +146,6 @@
 
     });
 
-    $app->get('/life-bot/css/{name}', function(Request $request, Response $response) {
-        $name = $request->getAttribute("name");
-        if(file_exists("css/" . $name)) {
-            $newResponse = $response->withStatus(304);
-            $newResponse->withHeader('Contnet-Type', 'text/css; charset=utf-8');
-            $newStream = new \GuzzleHttp\Psr7\LazyOpenStream('css/' . $name, 'r');
-            $newResponse->withBody($newStream);
-            //$newResponse->getBody()->write($cssContent);
-        }
-        else {
-            $newResponse = $response->withStatus(404);
-            $newResponse->withAddedHeader('Contnet-Type', 'text/html; charset=utf-8');
-            $newResponse->getBody()->write('<h2>file not found</h2>');
-        }
-
-        return $newResponse;
-
-    });
-
     $app->run();
 
 ?>
