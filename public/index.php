@@ -140,17 +140,24 @@
                 $message .= "<td>" . $index . "</td>";
                 $message .= "<td>" . $city . "</td>";
                 $message .= "<td>" . $en . "</td>";
-                $index += 1;                                                                                    
+                $index += 1;                                                                                
             }
             $message .= "</tr>";                                                      
         }
         
-        $this->logger->addInfo("Ticket list");
+        $this->logger->addInfo("City lists");
         $cities = $message;
         $response = $this->view->render($response, "cities.phtml", ["cities" => $cities]);
         
         return $response;
 
+    });
+
+    $app->get('/life-bot/need_help', function(Request $request, Response $response) {
+        $help = "";
+        
+        $this->logger->addInfo('Need Help');
+        $response = $this->view->render($response, "usage.phtml", ["help" => $help]);
     });
 
     $app->run();

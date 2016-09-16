@@ -64,12 +64,14 @@
         }
 
         public function processPostBack() {
-            $message = "城市清單在下列網址：\n";
+            $message = "";
 
             if($this->message === "need_your_help") {
-
+                $message = "使用說明在下列網址：\n";
+                $message .= "https://peter-web.lionfree.net/life-bot/need_help";
             }
             else if($this->message === "city_lists") {
+                $message = "城市清單在下列網址：\n";
                 $message .= "https://peter-web.lionfree.net/life-bot/city_lists";
             }
             else if($this->message === "give_me_dog_cat") {
