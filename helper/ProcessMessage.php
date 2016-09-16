@@ -69,7 +69,7 @@
 
             }
             else if($this->message === "city_lists") {
-                $json = file_get_contents("places/cities.json");                                                                                                       
+                $json = file_get_contents("../places/cities.json");                                                                                                       
                 $json = json_decode($json, true);                                                                                                                      
                 $cities = $json["cities"];
                                                                                                                                      
