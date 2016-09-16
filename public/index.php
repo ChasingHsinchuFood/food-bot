@@ -151,10 +151,13 @@
         if(file_exists("css/" . $name)) {
             $response->withStatus(200);
             $response->withHeader('Contnet-Type', 'text/plain; charset=utf-8');
+            $cssContent = file_get_contents("css/" . $name);
+            $response->getBody()->write($cssContent);
         }
         else {
             $response->withStatus(404);
             $response->withHeader('Contnet-Type', 'text/html; charset=utf-8');
+            $response->getBody()->write('file not found');
         }
 
         return $response;
