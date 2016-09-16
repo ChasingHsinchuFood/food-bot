@@ -126,7 +126,6 @@
                 $dataLen = count($data) - 1;
                 srand();
                 $index = rand(0, $dataLen);
-                file_put_contents("./res.txt", $data[$index]["url"]);
                 return $data[$index]["url"];
             }
             else {
