@@ -50,7 +50,6 @@
                 else if(mb_stristr($this->message, "_dog_cat") != false) {
                     $json["message"]["attachment"]["type"] = "image";
                     $json["message"]["attachment"]["payload"]["url"] = $this->processPostBack();
-                    file_put_contents("./res.txt", $this->processPostBack());
                 }
                 else if(mb_stristr($this->message, "_") != false) {
                     $json["message"]["text"] = $this->processPostBack();
@@ -122,6 +121,7 @@
             $response = $client->request("GET", $url);
             $json = json_decode($response->getBody(). true);
             $data = $json["data"];
+            file_put_contents("./res.txt", $json);
             $dataLen = count($data);
             $index = rand(0, $dataLen);
             return $data[$index]["url"];
