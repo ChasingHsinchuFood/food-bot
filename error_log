@@ -1,2 +1,0 @@
-[16-Sep-2016 06:37:47 Asia/Taipei] PHP Warning:  require_once(../helper/ProcessMessage.php): failed to open stream: No such file or directory in /home/peterweb/public_html/life-bot/vendor/autoload.php on line 8
-[16-Sep-2016 06:37:47 Asia/Taipei] PHP Fatal error:  require_once(): Failed opening required '../helper/ProcessMessage.php' (include_path='.;/path/to/php/pear') in /home/peterweb/public_html/life-bot/vendor/autoload.php on line 8
