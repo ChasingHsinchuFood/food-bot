@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "85c31166eb2e00540bd5a8a43dcaa164",
-    "content-hash": "bbca51a19d86541295e6d6502477d996",
+    "hash": "d3729a75a7945c2bc4bffb84dcf99f2f",
+    "content-hash": "48394afa64ec8e9e52fda03bc281605c",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -250,16 +250,16 @@
         },
         {
             "name": "peter/botbuilder",
-            "version": "1.1.9",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/peter279k/bot-builder.git",
-                "reference": "da2bb3c4406027a9646a459601c1b2dfea74a0e5"
+                "reference": "0300305c496dd86a5bb4842f4770449f3ea678ba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/peter279k/bot-builder/zipball/da2bb3c4406027a9646a459601c1b2dfea74a0e5",
-                "reference": "da2bb3c4406027a9646a459601c1b2dfea74a0e5",
+                "url": "https://api.github.com/repos/peter279k/bot-builder/zipball/0300305c496dd86a5bb4842f4770449f3ea678ba",
+                "reference": "0300305c496dd86a5bb4842f4770449f3ea678ba",
                 "shasum": ""
             },
             "require": {
@@ -282,7 +282,7 @@
                 }
             ],
             "description": "help you build messenger bot easily",
-            "time": "2016-09-16 07:32:40"
+            "time": "2016-09-16 08:33:07"
         },
         {
             "name": "pimple/pimple",

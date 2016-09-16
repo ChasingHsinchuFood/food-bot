@@ -1,6 +1,6 @@
 {
     "require": {
-        "peter/botbuilder": "^1.1",
+        "peter/botbuilder": "^1.2",
         "slim/slim": "^3.5"
     }
 }
