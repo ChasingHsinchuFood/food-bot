@@ -129,13 +129,16 @@
         $cities = $json["cities"];
         $message = "";
 
+        $index = 1;
         foreach($cities as $key => $value) {
             $message .= "<tr>";
             foreach($value as $city => $en) {
+                $message .= "<td>" . $index . "</td>";
                 $message .= "<td>" . $city . "</td>";
-                $message .= "<td>" . $en . "</td>";                                                                                    
+                $message .= "<td>" . $en . "</td>";
+                $index += 1;                                                                                    
             }
-            $message .= "</tr>";                                                                
+            $message .= "</tr>";                                                      
         }
         
         $this->logger->addInfo("Ticket list");
