@@ -1,4 +1,6 @@
 <?php
+    use \GuzzleHttp\Client;
+    
     class ProcessMessage {
         public function __construct($message, $sender) {
             $this->message =  strtolower($message);
