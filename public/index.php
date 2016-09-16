@@ -48,9 +48,7 @@
             $message = "not-find.";
             $response->getBody()->write($message);
             return $response;
-        }                                                                                                                  
-
-        file_put_contents("./msg.txt", $message);
+        }
 
         $process = new ProcessMessage($message, $sender);                                                       
         $json = $process->processText();                                                                                                                 

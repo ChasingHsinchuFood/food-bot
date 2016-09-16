@@ -1,6 +1,6 @@
 <?php
     use \GuzzleHttp\Client;
-    
+
     class ProcessMessage {
         public function __construct($message, $sender) {
             $this->message =  strtolower($message);
@@ -116,7 +116,7 @@
         }
 
         private function getGif($animal) {
-            $url = rawurlencode("http://api.giphy.com/v1/gifs/search?q=funny+" . $animal . "&api_key=dc6zaTOxFJmzC");
+            $url = "http://api.giphy.com/v1/gifs/search?q=funny+" . $animal . "&api_key=dc6zaTOxFJmzC";
             $client = new Client();
             $response = $client->request("GET", $url);
             $json = json_decode($response->getBody(). true);
