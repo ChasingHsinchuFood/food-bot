@@ -18,7 +18,7 @@
         return function ($request, $response) use ($container) {
             return $container['response']
                 ->withStatus(404)
-                ->withHeader('Content-Type', 'text/html')
+                ->withHeader('Content-Type', 'text/html; charset=utf-8')
                 ->write('<h2>Page not found</h2><h2>找不到頁面</h2>');
         };
     };
@@ -150,10 +150,11 @@
         $name = $request->getAttribute("name");
         if(file_exists("css/" . $name)) {
             $response->withStatus(200);
-            $response->withAddedHeader('Contnet-Type', 'text/plain');
+            $response->withHeader('Contnet-Type', 'text/plain; charset=utf-8');
         }
         else {
             $response->withStatus(404);
+            $response->withHeader('Contnet-Type', 'text/html; charset=utf-8');
         }
 
         return $response;
