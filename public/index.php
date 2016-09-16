@@ -1,7 +1,9 @@
 <?php
     require "../vendor/autoload.php";
 
-    //require "../../helper/processmessage.php";
+    spl_autoload_register(function ($classname) {
+        require ("../helper/" . $classname . ".php");
+    });
 
     use \Psr\Http\Message\ServerRequestInterface as Request;
     use \Psr\Http\Message\ResponseInterface as Response;
