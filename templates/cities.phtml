@@ -15,25 +15,26 @@
             <h2>動態公車輸入城市名稱用</h2>
         </div>
         <div class="content">
-                <table class="pure-table">
-                    <thead>
-                        <tr>
-                           <th>編號</th>
-                           <th>中文名稱</th>
-                           <th>英文名稱</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+            <h2 class="content-subhead">中英對照表</h2>
+            <table class="pure-table">
+                <thead>
+                    <tr>
+                        <th>編號</th>
+                        <th>中文名稱</th>
+                        <th>英文名稱</th>
+                    </tr>
+                </thead>
+                <tbody>
 
-                    <?php
-                        if(isset($data["cities"])) {
-                            echo $data["cities"];
-                        }
-                    ?>
+                <?php
+                    if(isset($data["cities"])) {
+                        echo $data["cities"];
+                    }
+                ?>
 
-                    </tbody>
-                </table>
-            </div>
+                </tbody>
+            </table>
+        </div>
         </div>
     </div>
 </body>
