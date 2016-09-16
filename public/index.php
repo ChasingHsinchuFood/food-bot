@@ -153,14 +153,15 @@
             $response->withHeader('Contnet-Type', 'text/plain; charset=utf-8');
             $cssContent = file_get_contents("css/" . $name);
             $response->getBody()->write($cssContent);
+            return $response;
         }
         else {
-            $response->withStatus(404);
-            $response->withHeader('Contnet-Type', 'text/html; charset=utf-8');
-            $response->getBody()->write('file not found');
+            $newResponse = $response->withStatus(404);
+            $newResponse->withHeader('Contnet-Type', 'text/html; charset=utf-8');
+            $newResponse->getBody()->write('file not found');
+            return $newResponse;
         }
 
-        return $response;
     });
 
     $app->run();
