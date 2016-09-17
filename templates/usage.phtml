@@ -12,24 +12,25 @@
     <div id="layout">
         <div id="main">
         <div class="header">
-            <h1>城市對照清單</h1>
-            <h2>動態公車輸入城市名稱用</h2>
+            <h1>幫助我</h1>
+            <h2>life-bot 使用方式</h2>
         </div>
         <div class="content">
-            <h2 class="content-subhead">中英對照表</h2>
+            <h2 class="content-subhead">指令對照表</h2>
             <table class="pure-table table-width">
                 <thead>
                     <tr>
-                        <th>編號</th>
-                        <th>中文名稱</th>
-                        <th>英文名稱</th>
+                        <th>中文指令</th>
+                        <th>英文指令</th>
+                        <th>結果</th>
+                        <th>備註</th>
                     </tr>
                 </thead>
                 <tbody>
 
                 <?php
-                    if(isset($data["cities"])) {
-                        echo $data["cities"];
+                    if(isset($data["help"])) {
+                        echo $data["help"];
                     }
                 ?>
 

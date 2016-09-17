@@ -12,17 +12,22 @@
     <div id="layout">
         <div id="main">
         <div class="header">
-            <h1>城市對照清單</h1>
-            <h2>動態公車輸入城市名稱用</h2>
+            <h1>公車動態</h1>
+            <h2>查詢結果</h2>
         </div>
         <div class="content">
-            <h2 class="content-subhead">中英對照表</h2>
+            <h2 class="content-subhead">動態公車表</h2>
+            <?php
+                if(isset($data["route_name"])) {
+                    echo $data["route_name"];
+                }
+            ?>
             <table class="pure-table table-width">
                 <thead>
                     <tr>
-                        <th>編號</th>
-                        <th>中文名稱</th>
-                        <th>英文名稱</th>
+                        <th>去程/回程</th>
+                        <th>站牌名稱</th>
+                        <th>預估到站時間</th>
                     </tr>
                 </thead>
                 <tbody>

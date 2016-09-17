@@ -154,7 +154,7 @@
     });
 
     $app->get('/life-bot/need_help', function(Request $request, Response $response) {
-        $help = "";
+        $help = "使用方法";
         
         $this->logger->addInfo('Need Help');
         $response = $this->view->render($response, "usage.phtml", ["help" => $help]);
