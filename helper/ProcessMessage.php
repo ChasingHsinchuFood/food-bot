@@ -30,7 +30,7 @@
                 if(count($messages) === 3) {
                     if(mb_stristr($messages[0], "公車") != false || mb_stristr($messages[0], "bus") != false) {
                         $busTime = new BusTime($messages);
-                        $json["message"]["text"] = $busTime->getStopTime();
+                        $json["message"]["text"] = $busTime->getEstTime();
                     }
                     else {
                         $json["message"]["text"] = "公車動態服務無法達成！\nthe dynamic bus service is not successful";
@@ -39,7 +39,7 @@
                 else if(count($messages) === 2) {
                     if(mb_stristr($messages[0], "客運") != false || mb_stristr($messages[0], "bus") != false) {
                         $busTime = new BusTime($messages);
-                        $json["message"]["text"] = $busTime->getStopTime();
+                        $json["message"]["text"] = $busTime->getEstTime();
                     }
                     else {
                         $json["message"]["text"] = "公車動態服務無法達成！\nthe dynamic bus service is not successful";
@@ -68,11 +68,11 @@
             $message = "";
 
             if($this->message === "need_your_help") {
-                $message = "使用說明在下列網址：\n the command lists is about the following url:";
+                $message = "使用說明在下列網址：\n the command lists is about the following url:\n";
                 $message .= "https://peter-web.lionfree.net/life-bot/need_help";
             }
             else if($this->message === "city_lists") {
-                $message = "城市清單在下列網址：\n the command lists is about the following url:";
+                $message = "城市清單在下列網址：\n the command lists is about the following url:\n";
                 $message .= "https://peter-web.lionfree.net/life-bot/city_lists";
             }
             else if($this->message === "give_me_dog_cat") {
@@ -84,11 +84,14 @@
                     $message = $this->getGif("cat");
             }
             else if($this->message === "give_me_command_lists") {
+                $usage = file_get_contents("../usage/json/usage.json");
+                
                 $message = "useful commands,常用指令\n";
-                $message .= "1. bus status,公車動態\n";
-                $message .= "（command）指令：bus,城市名,路線名稱\n";
-                $message .= "（command）指令範例：bus,Taipei,287\n";
-                $message .= "注意：英文大小寫皆可接受！";
+                $len = count($usage);
+
+                for($i=0;$i<$len;$i++) {
+                    $message .= "用法：" . $usage[$i]["ps"] . ";範例：" . $usage[$i]["cmd"] . "\n";
+                }
             }
             else {
                 $message = "invalid post back.";
