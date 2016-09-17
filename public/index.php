@@ -171,10 +171,10 @@
                 $message .= "<tr>";
             }
 
-            $message .= "<td>" . $usage[$len]["tw"] . "</td>";
-            $message .= "<td>" . $usage[$len]["en"] . "</td>";
-            $message .= "<td>" . $usage[$len]["result"] . "</td>";
-            $message .= "<td>" . $usage[$len]["[ps"] . "</td>";
+            $message .= "<td>" . $usage[$i]["tw"] . "</td>";
+            $message .= "<td>" . $usage[$i]["en"] . "</td>";
+            $message .= "<td>" . $usage[$i]["result"] . "</td>";
+            $message .= "<td>" . $usage[$i]["ps"] . "</td>";
 
             $message .= "</tr>";
         }
