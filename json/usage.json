@@ -1,12 +1,11 @@
 {
 	"usage": [
-		{"cmd": "你好", "result": "<p>Hello! May I help you ?</p><p>嗨，有什麼事可以為你效勞的嘛？</p>", "ps": "簡短打招呼"},
-		{"cmd": "hello", "result": "<p>Hello! May I help you ?</p><p>嗨，有什麼事可以為你效勞的嘛？</p>", "ps": "簡短打招呼"},
-		{"cmd": "123", "result": "<p>You have to input more texts so that I can understand what do you mean</p><p>你必須打更多的字好讓我看的懂！</p>", "ps": "文字小於五不受理！(sample)"},
-		{"cmd": "公車,台北,287", "result": "查詢結果連結: e.g. https://peter-web.lionfree.net/life-bot/dy_bus", "ps": "公車,地區名稱,路線名稱"},
-		{"cmd": "bus,Taipei,287", "result": "查詢結果連結: e.g. https://peter-web.lionfree.net/life-bot/dy_bus", "ps": "公車,地區名稱,路線名稱"},
-		{"cmd": "客運,9102", "result": "查詢結果連結: e.g. https://peter-web.lionfree.net/life-bot/dy_bus", "ps": "客運,路線名稱"},
-		{"cmd": "bus,9102", "result": "查詢結果連結: e.g. https://peter-web.lionfree.net/life-bot/dy_bus", "ps": "客運,路線名稱"},
+		{"cmd": "你好", "result": "嗨，有什麼事可以為你效勞的嘛？", "ps": "簡短打招呼"},
+		{"cmd": "hello", "result": "Hello! May I help you ?</p>", "ps": "簡短打招呼"},
+		{"cmd": "公車,台北,287", "result": "查詢結果連結", "ps": "公車,地區名稱,路線名稱"},
+		{"cmd": "bus,Taipei,287", "result": "查詢結果連結", "ps": "公車,地區名稱,路線名稱"},
+		{"cmd": "客運,9102", "result": "查詢結果連結", "ps": "客運,路線名稱"},
+		{"cmd": "bus,9102", "result": "查詢結果連結", "ps": "客運,路線名稱"},
 		{"cmd": "我需要訂票", "result": "將結果寄到信箱", "ps": "需要上傳『訂票檔』"},
 		{"cmd": "I have to book my ticket", "result": "將結果寄到信箱", "ps": "需要上傳『訂票檔』"}
 	]
