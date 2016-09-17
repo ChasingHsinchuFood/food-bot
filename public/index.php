@@ -124,7 +124,7 @@
     });
 
     $app->get('/life-bot/city_lists', function(Request $request, Response $response) {
-        $json = file_get_contents("../places/cities.json");                                                                                                       
+        $json = file_get_contents("../json/cities.json");                                                                                                  
         $json = json_decode($json, true);                                                                                                                 
         $cities = $json["cities"];
         $message = "";
@@ -155,9 +155,32 @@
 
     $app->get('/life-bot/need_help', function(Request $request, Response $response) {
         $help = "使用方法";
-        
+        $json = file_get_contents("../json/usage.json");
+        $json = json_decode($json, true);
+        $usage = $json["usage"];
+        $message = "";
+
+        $index = 1;
+        $len = count($usage);
+
+        for($i=0;$i<$len;$i++) {
+            if($index % 2 === 1) {
+                $message .= "<tr class='pure-table-odd'>";
+            }
+            else {
+                $message .= "<tr>";
+            }
+
+            $message .= "<td>" . $usage[$len]["tw"] . "</td>";
+            $message .= "<td>" . $usage[$len]["en"] . "</td>";
+            $message .= "<td>" . $usage[$len]["result"] . "</td>";
+            $message .= "<td>" . $usage[$len]["[ps"] . "</td>";
+
+            $message .= "</tr>";
+        }
+
         $this->logger->addInfo('Need Help');
-        $response = $this->view->render($response, "usage.phtml", ["help" => $help]);
+        $response = $this->view->render($response, "usage.phtml", ["help" => $message]);
     });
 
     $app->run();

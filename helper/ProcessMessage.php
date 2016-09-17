@@ -12,8 +12,9 @@
             $json["recipient"]["id"] = $this->sender;
 
             $needle = "hello";
+            $needleTw = "你好";
 
-            if(stristr($this->message, $needle) != false) {
+            if(mb_stristr($this->message, $needle) != false) {
                 $json["message"]["text"] = "Hello! May I help you ? \n 嗨，有什麼事可以為你效勞的嘛？";
             }
             else if(mb_strlen($this->message) <= 5) {
@@ -67,11 +68,11 @@
             $message = "";
 
             if($this->message === "need_your_help") {
-                $message = "使用說明在下列網址：\n";
+                $message = "使用說明在下列網址：\n the command lists is about the following url:";
                 $message .= "https://peter-web.lionfree.net/life-bot/need_help";
             }
             else if($this->message === "city_lists") {
-                $message = "城市清單在下列網址：\n";
+                $message = "城市清單在下列網址：\n the command lists is about the following url:";
                 $message .= "https://peter-web.lionfree.net/life-bot/city_lists";
             }
             else if($this->message === "give_me_dog_cat") {
