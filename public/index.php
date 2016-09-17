@@ -171,7 +171,7 @@
                 $message .= "<tr>";
             }
 
-            $message .= "<td>" . $usage[$i]["tw"] . "</td>";
+            $message .= "<td>" . $usage[$i]["cmd"] . "</td>";
             $message .= "<td>" . $usage[$i]["result"] . "</td>";
             $message .= "<td>" . $usage[$i]["ps"] . "</td>";
 
