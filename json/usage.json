@@ -1,0 +1,9 @@
+{
+	"usage": [
+		{"tw": "你好", "en": "hello", "result": "Hello! May I help you ? \n 嗨，有什麼事可以為你效勞的嘛？", "ps": "簡短打招呼"},
+		{"tw": "123", "en": "123", "result": "You have to input more texts so that I can understand what do you mean \n 你必須打更多的字好讓我看的懂！", "ps": "文字小於五不受理！(sample)"},
+		{"tw": "公車,台北,287", "en": "bus,Taipei,287", "result": "查詢結果連結: e.g. https://peter-web.lionfree.net/life-bot/dy_bus", "ps": "公車,地區名稱,路線名稱"},
+		{"tw": "客運,9102", "en": "bus,9102", "result": "查詢結果連結: e.g. https://peter-web.lionfree.net/life-bot/dy_bus", "ps": "客運,路線名稱"},
+		{"tw": "我需要訂票", "en": "I have to book my ticket", "result": "將結果寄到信箱", "ps": "需要上傳『訂票檔』"}
+	]
+}
