@@ -84,7 +84,8 @@
                     $message = $this->getGif("cat");
             }
             else if($this->message === "give_me_command_lists") {
-                $usage = json_decode(file_get_contents("../json/usage.json"), true);
+                $json = json_decode(file_get_contents("../json/usage.json"), true);
+                $usage = $json["usage"];
                 
                 $message = "useful commands,常用指令\n";
                 $len = count($usage);
