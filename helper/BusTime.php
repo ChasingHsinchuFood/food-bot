@@ -26,11 +26,11 @@
                 $routeJson = $this->getBusRoute($msgs);
                 $directionJson = $this->getDirection($msgs);
 
-                $result = $this->processBus($estJson, $routeJson);
+                $result = $this->processBus($estJson, $routeJson, $directionJson);
 
             }
             catch(GuzzleHttp\Exception\ServerException $e) {
-                if ($e->hasResponse()) {
+                if($e->hasResponse()) {
                     $response = Psr7\str($e->getResponse());
                     $response = json_decode($response, true);
                     if(isset($response["message"]))
@@ -42,9 +42,9 @@
             
         }
 
-        //輸出最後的 json
-        private function processBus($json) {
-            if(strlen($json) === 0) {
+        //輸出最後的 "table data"
+        private function processBus($estJson, $routeJson, $directionJson) {
+            if(is_array($estJson) === false) {
                 return "查無此資訊！";
             }
             else {
@@ -54,26 +54,107 @@
 
         //get bus route (取得公車或客運路線)
         private function getBusRoute($message) {
-            //e.g. http://ptx.transportdata.tw/MOTC/v2/Bus/StopOfRoute/City/Taipei/306?%24select=Stops%2CDirection&%24format=JSON
-            //e.g. http://ptx.transportdata.tw/MOTC/v2/Bus/StopOfRoute/InterCity/9006?%24select=Stops%2CDirection&%24format=JSON
             if($message[0] === "公車") {
-                $reqUrl = "";
+                $reqUrl = "http://ptx.transportdata.tw/MOTC/v2/Bus/StopOfRoute/City/" . $message[1] . "/" . $message[2] . "?%24select=Stops%2CDirection&%24format=JSON";
             }
             else {
-
+                $reqUrl = "http://ptx.transportdata.tw/MOTC/v2/Bus/StopOfRoute/InterCity/" . $message[1] . "?%24select=Stops%2CDirection&%24format=JSON";
             }
+
+            try {
+                $response = $client->request("GET", $reqUrl);
+                $result = json_decode($response->getBody(), true);
+
+                if(strlen($result) === 0) {
+                    $result = "no-data";
+                    return $result;
+                }
+
+                $len = count($result);
+
+                $res = $this->processRoute($result);
+
+                $result = $res;
+            }
+            catch(GuzzleHttp\Exception\ServerException $e) {
+                if($e->hasResponse()) {
+                    $response = Psr7\str($e->getResponse());
+                    $response = json_decode($response, true);
+                    if(isset($response["message"]))
+                        $result = $response["message"];
+                }
+            }
+
+            return $result;
         }
 
         //get direction (取得去回程) e.g. 去程：台北到基隆 e.g. 基隆到台北
         private function getDirection($message) {
-            //e.g. http://ptx.transportdata.tw/MOTC/v2/Bus/Route/City/Taipei/307?%24select=DepartureStopNameZh%2CDestinationStopNameZh%2CSubRoutes&%24format=JSON
-            //e.g. http://ptx.transportdata.tw/MOTC/v2/Bus/Route/InterCity/9006?%24select=DepartureStopNameZh%2CDestinationStopNameZh%2CSubRoutes&%24format=JSON
             if($msg[0] === "公車") {
-                $reqUrl = "";
+                $reqUrl = "http://ptx.transportdata.tw/MOTC/v2/Bus/Route/City/" . $message[1] . "/" . $message[2] . "?%24select=DepartureStopNameZh%2CDestinationStopNameZh%2CSubRoutes&%24format=JSON";
             }
             else {
-                
+                $reqUrl = "http://ptx.transportdata.tw/MOTC/v2/Bus/Route/InterCity/" . $message[1] . "?%24select=DepartureStopNameZh%2CDestinationStopNameZh%2CSubRoutes&%24format=JSON";
             }
+
+            try {
+                $response = $client->request("GET", $reqUrl);
+                $result = json_decode($response->getBody(), true);
+                if(strlen($result) === 0) {
+                    $result = "no-data";
+                }
+            }
+            catch(GuzzleHttp\Exception\ServerException $e) {
+                if($e->hasResponse()) {
+                    $response = Psr7\str($e->getResponse());
+                    $response = json_decode($response, true);
+                    if(isset($response["message"]))
+                        $result = $response["message"];
+                }
+            }
+
+            return $result;
+        }
+
+        private function processRoute($result) {
+            $res = array();
+            $res["Direction_0"] = array();
+            $res["Direction_1"] = array();
+                
+            $directionGo = null;
+            $directionBack = null;
+
+            $backNum = 0;
+            $goNum = 0;
+
+            for($index=0;$index<$len;$index++) {
+                if($result[$index]["Direction"] == 0) {
+                    $stops = $result[$index]["Stops"];
+                    $lenStops = count($stops);
+                    if($lenStops > $backNum) {
+                        $backNum = $lenStops;
+                        $directionBack = $stops;
+                    }
+                }
+                else {
+                    $stops = $result[$index]["Stops"];
+                    $lenStops = count($stops);
+                    if($lenStops > $goNum) {
+                        $goNum = $lenStops;
+                        $directionGo = $stops;
+                    }
+                }
+            }
+
+            for($i=0;$i<$backNum;$i++) {
+                $res["Direction_0"][$i] = $directionBack[$i]["StopName"]["Zh_tw"];
+            }
+
+            for($i=0;$i<$goNum;$i++) {
+                $res["Direction_1"][$i] = $directionGo[$i]["StopName"]["Zh_tw"];
+            }
+
+            return $res;
         }
 
 

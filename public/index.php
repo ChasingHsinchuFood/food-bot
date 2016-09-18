@@ -15,11 +15,13 @@
     $container = new \Slim\Container();
 
     $container['notFoundHandler'] = function ($container) {
+        //https://i.imgur.com/j7wPeJs.png
         return function ($request, $response) use ($container) {
+            $contents = file_get_contents("../templates/404.html");
             return $container['response']
                 ->withStatus(404)
                 ->withHeader('Content-Type', 'text/html; charset=utf-8')
-                ->write('<h2>Page not found</h2><h2>找不到頁面</h2>');
+                ->write($contents);
         };
     };
     
@@ -114,13 +116,13 @@
 
         if($data === true) {
             $response->getBody()->write("add-menu-success");
+            return $response;
         }
         else {
-            $response->withAddedHeader('Content-type', 'application/json');      
-            $response->getBody()->write(json_encode($data));
+            $newResponse = $response->withAddedHeader('Content-type', 'application/json');    
+            $newResponse->getBody()->write(json_encode($data));
+            return $newResponse;
         }
-
-        return $response;
     });
 
     $app->get('/life-bot/city_lists', function(Request $request, Response $response) {
@@ -182,6 +184,34 @@
 
         $this->logger->addInfo('Need Help');
         $response = $this->view->render($response, "usage.phtml", ["help" => $message]);
+    });
+
+    //query dynamic bus estimate time
+    $app->get('/life-bot/bus/city/{city_name}/route/{route_name}', function(Request $request, Response $response, $args) {
+        $cityName = $args["city_name"];
+        $routeName = $args["route_name"];
+
+        $messages = array("公車", $cityName, $routeName);
+        $busTime = new BusTime($messages);
+        $message = $busTime->getEstTime();
+
+        $this->logger->addInfo("Dynamic City Bus");
+        $response = $this->view->render($response, "buses.phtml", ["buses" => $message]);
+        
+        return $response;
+    });
+
+    $app->get('/life-bot/bus/inter-city/route/{route_name}', function(Request $request, Response $response, $args) {
+        $routeName = $args["route_name"];
+
+        $messages = array("客運", $routeName);
+        $busTime = new BusTime($messages);
+        $message = $busTime->getEstTime();
+
+        $this->logger->addInfo("Inter City Bus");
+        $response = $this->view->render($response, "buses.phtml", ["buses" => $message]);
+        
+        return $response;
     });
 
     $app->run();

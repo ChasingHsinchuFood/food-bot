@@ -29,8 +29,9 @@
 
                 if(count($messages) === 3) {
                     if(mb_stristr($messages[0], "公車") != false || mb_stristr($messages[0], "bus") != false) {
-                        $busTime = new BusTime($messages);
-                        $json["message"]["text"] = $busTime->getEstTime();
+                        $msg = "動態查詢服務已在下列網址完成。\n";
+                        $msg .= "https://peter-web.lionfree.net/life-bot/city/" . $messages[1] . "/route" . "/" . $messages[2];
+                        $json["message"]["text"] = $msg;
                     }
                     else {
                         $json["message"]["text"] = "公車動態服務無法達成！\nthe dynamic bus service is not successful";
@@ -38,8 +39,9 @@
                 }
                 else if(count($messages) === 2) {
                     if(mb_stristr($messages[0], "客運") != false || mb_stristr($messages[0], "bus") != false) {
-                        $busTime = new BusTime($messages);
-                        $json["message"]["text"] = $busTime->getEstTime();
+                        $msg = "動態公車詢服務已在下列網址完成。\n";
+                        $msg .= "https://peter-web.lionfree.net/life-bot/inter-city/route" . "/" . $messages[1];
+                        $json["message"]["text"] = $msg;
                     }
                     else {
                         $json["message"]["text"] = "公車動態服務無法達成！\nthe dynamic bus service is not successful";
