@@ -86,7 +86,8 @@
                     }
                 }
 
-                return $estJson;
+                //return $result;
+                return $routeJson;
             }
         }
 
@@ -164,8 +165,6 @@
 
         private function processRoute($result) {
             $res = array();
-            $res["Direction_0"] = array();
-            $res["Direction_1"] = array();
                 
             $directionGo = null;
             $directionBack = null;
