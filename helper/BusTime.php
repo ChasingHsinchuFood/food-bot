@@ -69,7 +69,7 @@
 
 
                 for($routeIndex=0;$routeIndex<$dirZeroLen;$routeIndex++) {
-                     $stopName = $routeJson[$routeIndex]["Direction_0"];
+                     $stopName = $routeJson["Direction_0"][$routeIndex];
 
                      for($estIndex=0;$estIndex<$estLen;$estIndex++) {
                         if($estJson[$estIndex]["Direction"] == 0 && $stopName == $estJson[$estIndex]["StopName"]["Zh_tw"]) {
@@ -99,7 +99,13 @@
 
                             $resultZeroIndex += 1;
                         }
+                    }
+                }
 
+                for($routeIndex=0;$routeIndex<$dirOneLen;$routeIndex++) {
+                    $stopName = $routeJson["Direction_1"][$routeIndex];
+
+                    for($estIndex=0;$estIndex<$estLen;$estIndex++) {
                         if($estJson[$estIndex]["Direction"] == 1 && $stopName == $estJson[$estIndex]["StopName"]["Zh_tw"]) {
                             if(isset($estJson[$estIndex]["StopStatus"])) {
                                 switch($estJson[$estIndex]["StopStatus"]) {
