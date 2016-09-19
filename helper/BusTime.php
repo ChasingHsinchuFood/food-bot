@@ -47,12 +47,11 @@
 
         //輸出最後的 "table data"
         private function processBus($estJson, $routeJson, $directionJson) {
-            if(is_array($estJson) === false) {
+            if(is_array($estJson) === false || is_array($routeJson) === false || is_array($directionJson) === false) {
                 return "查無此資訊！";
             }
             else {
                 $result = array();
-                $resultIndex = 0;
 
                 $routeZero = $directionJson["direction_0"];
                 $routeOne = $directionJson["direction_1"];
@@ -65,26 +64,23 @@
 
                 $estLen = count($estJson);
 
+                $resultZeroIndex = 0;
+                $resultOneIndex = 0;
+
                  for($estIndex=0;$estIndex<$estLen;$estIndex++) {
-                    $stopName = $routeJson["Direction_0"][$routeIndex];
-                   for($routeIndex=0;$routeIndex<$dirZeroLen;$routeIndex++) {
-                        if($stopName == $estJson[$estIndex]["StopName"] && $estJson[$estIndex]["Direction"] == 0) {
-                            $result["direction_0_stop_name"][$resultIndex] = $estJson[$estIndex]["StopName"];
-                            $result["direction_0_stop_name"]["est_time"][$resultIndex] = $estJson[$estIndex]["EstimateTime"];
-                            $resultIndex += 1;
+                     $stopName = $estJson[$estIndex]["StopName"]["Zh_tw"];
+
+                     for($routeIndex=0;$routeIndex<$dirZeroLen;$routeIndex++) {
+                        if($estJson[$estIndex]["Direction"] == 0 && $stopName == $routeJson["Direction_0"][$routeIndex]) {
+                            $result["direction_0_stop_name"][$resultZeroIndex] = $stopName;
+                            $result["direction_0_stop_name"]["est_time"][$resultZeroIndex] = $estJson[$estIndex]["EstimateTime"];
+                            $resultZeroIndex += 1;
                         }
-                    }
-                }
 
-                $resultIndex = 0;
-
-                for($estIndex=0;$estIndex<$estLen;$estIndex++) {
-                    $stopName = $estJson["Direction_1"][$routeIndex];
-                    for($routeIndex=0;$routeIndex<$dirOneLen;$routeIndex++) {
-                        if($stopName == $routeJson[$routeIndex]["StopName"] && $estJson[$estIndex]["Direction"] == 1) {
-                            $result["direction_1_stop_name"][$resultIndex] = $estJson[$estIndex]["StopName"];
-                            $result["direction_1_stop_name"]["est_time"][$resultIndex] = $estJson[$estIndex]["EstimateTime"];
-                            $resultIndex += 1;
+                        if($estJson[$estIndex]["Direction"] == 1 && $stopName == $routeJson["Direction_1"][$routeIndex]) {
+                            $result["direction_1_stop_name"][$resultOneIndex] = $stopName;
+                            $result["direction_1_stop_name"]["est_time"][$resultOneIndex] = $estJson[$estIndex]["EstimateTime"];
+                            $resultOneIndex += 1;
                         }
                     }
                 }
