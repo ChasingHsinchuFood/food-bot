@@ -51,94 +51,99 @@
                 return "查無此資訊！";
             }
             else {
-                $result = array();
-
                 $routeZero = $directionJson["direction_0"];
                 $routeOne = $directionJson["direction_1"];
 
+                $result = array();
                 $result["direction_0_text"] = $routeZero;
                 $result["direction_1_text"] = $routeOne;
-                
-                $dirZeroLen = count($routeJson["Direction_0"]);
-                $dirOneLen = count($routeJson["Direction_1"]);
 
-                $estLen = count($estJson);
-
-                $resultZeroIndex = 0;
-                $resultOneIndex = 0;
-
-
-                for($routeIndex=0;$routeIndex<$dirZeroLen;$routeIndex++) {
-                     $stopName = $routeJson["Direction_0"][$routeIndex];
-
-                     for($estIndex=0;$estIndex<$estLen;$estIndex++) {
-                        if($estJson[$estIndex]["Direction"] == 0 && $stopName == $estJson[$estIndex]["StopName"]["Zh_tw"]) {
-
-                            $result["direction_0_stop_name"]["est_time"][$resultZeroIndex] = $estJson[$estIndex]["EstimateTime"];
-                            
-                            if(isset($estJson[$estIndex]["StopStatus"])) {
-                                switch($estJson[$estIndex]["StopStatus"]) {
-                                    case 1:
-                                        $result["direction_0_stop_name"]["est_time"][$resultZeroIndex] = "尚未發車";     
-                                        break;
-                                    case 2:
-                                        $result["direction_0_stop_name"]["est_time"][$resultZeroIndex] = "交管不停靠";
-                                        break;
-                                    case 3:
-                                        $result["direction_0_stop_name"]["est_time"][$resultZeroIndex] = "末班車已過";
-                                        break;
-                                    case 4:
-                                        $result["direction_0_stop_name"]["est_time"][$resultZeroIndex] = "今日未營運";
-                                        break;
-                                }
-                            }
-
-                            $result["direction_0_stop_name"][$resultZeroIndex] = $stopName;
-
-                            $resultZeroIndex += 1;
-
-                            break;
-                        }
-                    }
-                }
-                /*
-                for($routeIndex=0;$routeIndex<$dirOneLen;$routeIndex++) {
-                    $stopName = $routeJson["Direction_1"][$routeIndex];
-
-                    for($estIndex=0;$estIndex<$estLen;$estIndex++) {
-                        if($estJson[$estIndex]["Direction"] == 1 && $stopName == $estJson[$estIndex]["StopName"]["Zh_tw"]) {
-                            if(isset($estJson[$estIndex]["StopStatus"])) {
-                                switch($estJson[$estIndex]["StopStatus"]) {
-                                    case 1:
-                                        $result["direction_1_stop_name"]["stop_status"] = "尚未發車";     
-                                        break;
-                                    case 2:
-                                        $result["direction_1_stop_name"]["stop_status"] = "交管不停靠";
-                                        break;
-                                    case 3:
-                                        $result["direction_1_stop_name"]["stop_status"] = "末班車已過";
-                                        break;
-                                    case 4:
-                                        $result["direction_1_stop_name"]["stop_status"] = "今日未營運";
-                                        break;
-                                }
-                            }
-                            else {
-                                $result["direction_1_stop_name"]["stop_status"] = "正常發車";
-                            }
-
-                            $result["direction_1_stop_name"][$resultOneIndex] = $stopName;
-
-                            $result["direction_1_stop_name"]["est_time"][$resultOneIndex] = $estJson[$estIndex]["EstimateTime"];
-
-                            $resultOneIndex += 1;
-                        }
-                    }
-                }
-                */
+                $result = $this->processZero($result, $routeJson, $estJson);
+                $result = $this->processOne($result, $routeJson, $estJson);
 
                 return $result;
             }
+        }
+
+        private function processZero($result, $routeJson, $estJson) {
+            $resultZeroIndex = 0;
+            $dirZeroLen = count($routeJson["Direction_0"]);
+            $estLen = count($estJson);
+
+            for($routeIndex=0;$routeIndex<$dirZeroLen;$routeIndex++) {
+                 $stopName = $routeJson["Direction_0"][$routeIndex];
+
+                 for($estIndex=0;$estIndex<$estLen;$estIndex++) {
+                     if($estJson[$estIndex]["Direction"] == 0 && $stopName == $estJson[$estIndex]["StopName"]["Zh_tw"]) {
+                         $result["direction_0_stop_name"]["est_time"][$resultZeroIndex] = $estJson[$estIndex]["EstimateTime"];
+                         
+                         if(isset($estJson[$estIndex]["StopStatus"])) {
+                             switch($estJson[$estIndex]["StopStatus"]) {
+                                case 1:
+                                    $result["direction_0_stop_name"]["est_time"][$resultZeroIndex] = "尚未發車";     
+                                    break;
+                                case 2:
+                                    $result["direction_0_stop_name"]["est_time"][$resultZeroIndex] = "交管不停靠";
+                                    break;
+                                case 3:
+                                    $result["direction_0_stop_name"]["est_time"][$resultZeroIndex] = "末班車已過";
+                                    break;
+                                case 4:
+                                    $result["direction_0_stop_name"]["est_time"][$resultZeroIndex] = "尚未有資料";
+                                    break;
+                            }
+                        }
+                        
+                        $result["direction_0_stop_name"][$resultZeroIndex] = $stopName;
+
+                        $resultZeroIndex += 1;
+
+                        break;
+                    }
+                }
+
+                return $result;
+            }
+        }
+
+        private function processOne($result, $routeJson, $estJson) {
+            $resultOneIndex = 0;
+            $dirOneLen = count($routeJson["Direction_0"]);
+            $estLen = count($estJson);
+
+            for($routeIndex=0;$routeIndex<$dirOneLen;$routeIndex++) {
+                $stopName = $routeJson["Direction_1"][$routeIndex];
+
+                for($estIndex=0;$estIndex<$estLen;$estIndex++) {
+                    if($estJson[$estIndex]["Direction"] == 1 && $stopName == $estJson[$estIndex]["StopName"]["Zh_tw"]) {
+
+                        $result["direction_1_stop_name"]["est_time"][$resultOneIndex] = $estJson[$estIndex]["EstimateTime"];
+
+                        if(isset($estJson[$estIndex]["StopStatus"])) {
+                            switch($estJson[$estIndex]["StopStatus"]) {
+                                case 1:
+                                    $result["direction_1_stop_name"]["est_time"][$resultOneIndex] = "尚未發車";     
+                                    break;
+                                case 2:
+                                    $result["direction_1_stop_name"]["est_time"][$resultOneIndex] = "交管不停靠";
+                                    break;
+                                case 3:
+                                    $result["direction_1_stop_name"]["est_time"][$resultOneIndex] = "末班車已過";
+                                    break;
+                                case 4:
+                                    $result["direction_1_stop_name"]["est_time"][$resultOneIndex] = "今日未營運或尚未有預估時間資料";
+                                    break;
+                            }
+                        }
+
+                        $result["direction_1_stop_name"][$resultOneIndex] = $stopName;
+
+                        $resultOneIndex += 1;
+                    }
+                }
+            }
+
+            return $result;
         }
 
         //get bus route (取得公車或客運路線)
