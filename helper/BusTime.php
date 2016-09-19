@@ -87,8 +87,7 @@
                     }
                 }
 
-                //return $result;
-                return $routeJson;
+                return $result;
             }
         }
 
