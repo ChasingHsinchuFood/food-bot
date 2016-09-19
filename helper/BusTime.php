@@ -109,7 +109,7 @@
 
         private function processOne($routeJson, $estJson) {
             $resultOneIndex = 0;
-            $dirOneLen = count($routeJson["Direction_0"]);
+            $dirOneLen = count($routeJson["Direction_1"]);
             $estLen = count($estJson);
             $result = array();
 
