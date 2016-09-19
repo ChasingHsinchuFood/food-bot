@@ -143,7 +143,8 @@
                 $response = $client->request("GET", $reqUrl);
                 $result = json_decode($response->getBody(), true);
                 if(count($result) === 0) {
-                    $result = "no-data";
+                    //$result = "no-data";
+                    $result = $reqUrl;
                 }
                 else {
                     $res["direction_0"] = $result[count($result)-1]["DepartureStopNameZh"];
