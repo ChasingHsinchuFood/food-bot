@@ -100,6 +100,7 @@
             }
 
             try {
+                $client = new Client();
                 $response = $client->request("GET", $reqUrl);
                 $result = json_decode($response->getBody(), true);
 
@@ -137,6 +138,7 @@
 
             try {
                 $res = array();
+                $client = new Client();
                 $response = $client->request("GET", $reqUrl);
                 $result = json_decode($response->getBody(), true);
                 if(strlen($result) === 0) {
