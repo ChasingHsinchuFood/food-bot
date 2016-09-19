@@ -67,11 +67,12 @@
                 $resultZeroIndex = 0;
                 $resultOneIndex = 0;
 
-                 for($estIndex=0;$estIndex<$estLen;$estIndex++) {
-                     $stopName = $estJson[$estIndex]["StopName"]["Zh_tw"];
 
-                     for($routeIndex=0;$routeIndex<$dirZeroLen;$routeIndex++) {
-                        if($estJson[$estIndex]["Direction"] == 0 && $stopName == $routeJson["Direction_0"][$routeIndex]) {
+                for($routeIndex=0;$routeIndex<$dirZeroLen;$routeIndex++) {
+                     $stopName = $routeJson[$routeIndex]["Direction_0"];
+
+                     for($estIndex=0;$estIndex<$estLen;$estIndex++) {
+                        if($estJson[$estIndex]["Direction"] == 0 && $stopName == $estJson[$estIndex]["StopName"]["Zh_tw"]) {
                             if(isset($estJson[$estIndex]["StopStatus"])) {
                                 switch($estJson[$estIndex]["StopStatus"]) {
                                     case 1:
@@ -99,7 +100,7 @@
                             $resultZeroIndex += 1;
                         }
 
-                        if($estJson[$estIndex]["Direction"] == 1 && $stopName == $routeJson["Direction_1"][$routeIndex]) {
+                        if($estJson[$estIndex]["Direction"] == 1 && $stopName == $estJson[$estIndex]["StopName"]["Zh_tw"]) {
                             if(isset($estJson[$estIndex]["StopStatus"])) {
                                 switch($estJson[$estIndex]["StopStatus"]) {
                                     case 1:
@@ -119,7 +120,7 @@
                             else {
                                 $result["direction_0_stop_name"]["stop_status"] = "正常發車";
                             }
-                            
+
                             $result["direction_1_stop_name"][$resultOneIndex] = $stopName;
 
                             $result["direction_1_stop_name"]["est_time"][$resultOneIndex] = $estJson[$estIndex]["EstimateTime"];
