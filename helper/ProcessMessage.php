@@ -125,10 +125,11 @@
 
             if($json["meta"]["status"] == 200) {
                 $data = $json["data"];
-                $dataLen = count($data) - 1;
-                srand();
-                $index = rand(0, $dataLen);
-                return $data[$index]["images"]["original"]["url"];
+                for($index=0;$index<$dataLen;$index++) {
+                    $result[$index] = $data[$index]["images"]["original"]["url"];
+                }
+                $res = array_rand($result);
+                return $result[$res[0]];
             }
             else {
                 return "https://valleytechnologies.net/wp-content/uploads/2015/07/error.png";
