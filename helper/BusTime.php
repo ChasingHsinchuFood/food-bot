@@ -130,7 +130,7 @@
 
         //get direction (取得去回程) e.g. 去程：台北到基隆 e.g. 基隆到台北
         private function getDirection($message) {
-            if($msg[0] === "公車") {
+            if($message[0] === "公車") {
                 $reqUrl = "http://ptx.transportdata.tw/MOTC/v2/Bus/Route/City/" . $message[1] . "/" . $message[2] . "?%24select=DepartureStopNameZh%2CDestinationStopNameZh%2CSubRoutes&%24format=JSON";
             }
             else {
@@ -143,8 +143,7 @@
                 $response = $client->request("GET", $reqUrl);
                 $result = json_decode($response->getBody(), true);
                 if(count($result) === 0) {
-                    //$result = "no-data";
-                    $result = $reqUrl;
+                    $result = "no-data";
                 }
                 else {
                     $res["direction_0"] = $result[count($result)-1]["DepartureStopNameZh"];
