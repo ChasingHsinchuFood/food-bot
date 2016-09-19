@@ -1,6 +1,6 @@
 <?php
     use \GuzzleHttp\Client;
-    use GuzzleHttp\Psr7;
+    use \GuzzleHttp\Psr7;
 
     class BusTime {
         public function __construct($messages) {
