@@ -86,7 +86,7 @@
                     }
                 }
 
-                return $result;
+                return array_push($estJson, $routeJson, $directionJson);
             }
         }
 
