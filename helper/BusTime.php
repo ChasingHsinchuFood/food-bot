@@ -173,6 +173,8 @@
             $backNum = 0;
             $goNum = 0;
 
+            $len = count($result);
+
             for($index=0;$index<$len;$index++) {
                 if($result[$index]["Direction"] == 0) {
                     $stops = $result[$index]["Stops"];
