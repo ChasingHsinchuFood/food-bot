@@ -1,4 +1,6 @@
 <?php
+    use \GuzzleHttp\Client;
+
     class BusTime {
         public function __construct($messages) {
             $this -> messages = $messages;

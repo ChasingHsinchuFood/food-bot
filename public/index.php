@@ -1,16 +1,16 @@
 <?php
     require "../vendor/autoload.php";
 
+    spl_autoload_register(function ($classname) {
+        require ("../helper/" . $classname . ".php");
+    });
+
     use \Psr\Http\Message\ServerRequestInterface as Request;
     use \Psr\Http\Message\ResponseInterface as Response;
 
     use \peter\components\BotBuilder;
 
     use \GuzzleHttp\Client;
-
-    spl_autoload_register(function ($classname) {
-        require ("../helper/" . $classname . ".php");
-    });
 
     $container = new \Slim\Container();
 
