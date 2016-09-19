@@ -54,8 +54,8 @@
                 $result = array();
                 $resultIndex = 0;
 
-                $routeZero = $routeJson["direction_0"];
-                $routeOne = $routeJson["direction_1"];
+                $routeZero = $directionJson["direction_0"];
+                $routeOne = $directionJson["direction_1"];
 
                 $result["direction_0_text"] = $routeZero;
                 $result["direction_1_text"] = $routeOne;
@@ -126,7 +126,7 @@
                 }
             }
 
-            return $reqUrl;
+            return $result;
         }
 
         //get direction (取得去回程) e.g. 去程：台北到基隆 e.g. 基隆到台北
