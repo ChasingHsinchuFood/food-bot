@@ -102,9 +102,9 @@
                         break;
                     }
                 }
-
-                return $result;
             }
+
+            return $result;
         }
 
         private function processOne($routeJson, $estJson) {
