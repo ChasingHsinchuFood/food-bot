@@ -101,7 +101,7 @@
                         }
                     }
                 }
-
+                /*
                 for($routeIndex=0;$routeIndex<$dirOneLen;$routeIndex++) {
                     $stopName = $routeJson["Direction_1"][$routeIndex];
 
@@ -110,21 +110,21 @@
                             if(isset($estJson[$estIndex]["StopStatus"])) {
                                 switch($estJson[$estIndex]["StopStatus"]) {
                                     case 1:
-                                        $result["direction_0_stop_name"]["stop_status"] = "尚未發車";     
+                                        $result["direction_1_stop_name"]["stop_status"] = "尚未發車";     
                                         break;
                                     case 2:
-                                        $result["direction_0_stop_name"]["stop_status"] = "交管不停靠";
+                                        $result["direction_1_stop_name"]["stop_status"] = "交管不停靠";
                                         break;
                                     case 3:
-                                        $result["direction_0_stop_name"]["stop_status"] = "末班車已過";
+                                        $result["direction_1_stop_name"]["stop_status"] = "末班車已過";
                                         break;
                                     case 4:
-                                        $result["direction_0_stop_name"]["stop_status"] = "今日未營運";
+                                        $result["direction_1_stop_name"]["stop_status"] = "今日未營運";
                                         break;
                                 }
                             }
                             else {
-                                $result["direction_0_stop_name"]["stop_status"] = "正常發車";
+                                $result["direction_1_stop_name"]["stop_status"] = "正常發車";
                             }
 
                             $result["direction_1_stop_name"][$resultOneIndex] = $stopName;
@@ -135,6 +135,7 @@
                         }
                     }
                 }
+                */
 
                 return $result;
             }
