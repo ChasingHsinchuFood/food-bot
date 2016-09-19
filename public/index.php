@@ -195,10 +195,12 @@
         $busTime = new BusTime($messages);
         $message = $busTime->getEstTime();
 
-        $this->logger->addInfo("Dynamic City Bus");
-        $response = $this->view->render($response, "buses.phtml", ["buses" => $message]);
+        //$this->logger->addInfo("Dynamic City Bus");
+        //$response = $this->view->render($response, "buses.phtml", ["buses" => $message]);
+        $newResponse = $response->withAddedHeader('Content-type', 'application/json');    
+        $newResponse->getBody()->write(json_encode($message));
         
-        return $response;
+        return $newResponse;
     });
 
     $app->get('/life-bot/bus/inter-city/route/{route_name}', function(Request $request, Response $response, $args) {
