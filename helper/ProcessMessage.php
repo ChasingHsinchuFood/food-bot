@@ -22,45 +22,8 @@
             }
             else {
                 $messages = explode(",", $this->message);
-                //e.g. 公車,台北,287
-                //bus,Taipei,287
-                //客運,9102
-                //bus,9102
-
-                if(count($messages) === 3) {
-                    if(mb_stristr($messages[0], "公車") != false || mb_stristr($messages[0], "bus") != false) {
-                        $msg = "動態查詢服務已在下列網址完成。\n";
-                        $msg .= "https://peter-web.lionfree.net/life-bot/bus/city/" . $messages[1] . "/route" . "/" . $messages[2];
-                        $json["message"]["text"] = $msg;
-                    }
-                    else {
-                        $json["message"]["text"] = "公車動態服務無法達成！\nthe dynamic bus service is not successful";
-                    }
-                }
-                else if(count($messages) === 2) {
-                    if(mb_stristr($messages[0], "客運") != false || mb_stristr($messages[0], "bus") != false) {
-                        $msg = "動態公車詢服務已在下列網址完成。\n";
-                        $msg .= "https://peter-web.lionfree.net/life-bot/bus/inter-city/route" . "/" . $messages[1];
-                        $json["message"]["text"] = $msg;
-                    }
-                    else {
-                        $json["message"]["text"] = "公車動態服務無法達成！\nthe dynamic bus service is not successful";
-                    }
-                }
-                else if(mb_stristr($this->message, "I have to book my ticket") != false || mb_stristr($this->message, "我需要訂票") != false) {
-                    $json["message"]["text"] = "Ok! please upload the 'ticket.txt'. \n 好的，請上傳『訂票檔』。";
-                }
-                else if(mb_stristr($this->message, "_dog_cat") != false) {
-                    $json["message"]["attachment"]["type"] = "image";
-                    $json["message"]["attachment"]["payload"]["url"] = $this->processPostBack();
-                }
-                else if(mb_stristr($this->message, "_") != false) {
-                    $msg = $this->processPostBack();
-                    $json["message"]["text"] = $msg;
-                }
-                else {
-                    $json["message"]["text"] = "Sorry, this service is not available! \n 很抱歉，你說的這項服務我無法完成！";
-                }
+                $json = $this->processTextSplit($json, $messages);
+                //$json = $this->processWeather($json, $messages);
             }
 
             return $json;
@@ -114,6 +77,45 @@
             $json = array();
             $json["recipient"]["id"] = $this->sender;
             $json["message"]["text"] = "Sorry, this service is not available! \n 很抱歉，你說的這項服務我無法完成！";
+            return $json;
+        }
+
+        private function processTextSplit($json, $messages) {
+            if(count($messages) === 3) {
+                if(mb_stristr($messages[0], "公車") != false || mb_stristr($messages[0], "bus") != false) {
+                    $msg = "動態查詢服務已在下列網址完成。\n";
+                    $msg .= "https://peter-web.lionfree.net/life-bot/bus/city/" . $messages[1] . "/route" . "/" . $messages[2];
+                    $json["message"]["text"] = $msg;
+                }
+                else {
+                    $json["message"]["text"] = "公車動態服務無法達成！\nthe dynamic bus service is not successful";
+                }
+            }
+            else if(count($messages) === 2) {
+                if(mb_stristr($messages[0], "客運") != false || mb_stristr($messages[0], "bus") != false) {
+                    $msg = "動態公車詢服務已在下列網址完成。\n";
+                    $msg .= "https://peter-web.lionfree.net/life-bot/bus/inter-city/route" . "/" . $messages[1];
+                    $json["message"]["text"] = $msg;
+                }
+                else {
+                    $json["message"]["text"] = "公車動態服務無法達成！\nthe dynamic bus service is not successful";
+                }
+            }
+            else if(mb_stristr($this->message, "I have to book my ticket") != false || mb_stristr($this->message, "我需要訂票") != false) {
+                $json["message"]["text"] = "Ok! please upload the 'ticket.txt'. \n 好的，請上傳『訂票檔』。";
+            }
+            else if(mb_stristr($this->message, "_dog_cat") != false) {
+                $json["message"]["attachment"]["type"] = "image";
+                $json["message"]["attachment"]["payload"]["url"] = $this->processPostBack();
+            }
+            else if(mb_stristr($this->message, "_") != false) {
+                $msg = $this->processPostBack();
+                $json["message"]["text"] = $msg;
+            }
+            else {
+                $json["message"]["text"] = "Sorry, this service is not available! \n 很抱歉，你說的這項服務我無法完成！";
+            }
+
             return $json;
         }
 
