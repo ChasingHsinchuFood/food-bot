@@ -104,7 +104,7 @@
                 $response = $client->request("GET", $reqUrl);
                 $result = json_decode($response->getBody(), true);
 
-                if(strlen($result) === 0) {
+                if(count($result) === 0) {
                     $result = "no-data";
                     return $result;
                 }
@@ -141,12 +141,12 @@
                 $client = new Client();
                 $response = $client->request("GET", $reqUrl);
                 $result = json_decode($response->getBody(), true);
-                if(strlen($result) === 0) {
+                if(count($result) === 0) {
                     $result = "no-data";
                 }
                 else {
-                    $res["direction_0"] = $result[strlen($result)-1]["DepartureStopNameZh"];
-                    $res["direction_1"] = $result[strlen($result)-1]["DestinationStopNameZh"];
+                    $res["direction_0"] = $result[count($result)-1]["DepartureStopNameZh"];
+                    $res["direction_1"] = $result[count($result)-1]["DestinationStopNameZh"];
                     $result = $res;
                 }
             }
