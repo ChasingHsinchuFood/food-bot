@@ -141,6 +141,8 @@
                         $result["direction_1_stop_name"][$resultOneIndex] = $stopName;
 
                         $resultOneIndex += 1;
+
+                        break;
                     }
                 }
             }
