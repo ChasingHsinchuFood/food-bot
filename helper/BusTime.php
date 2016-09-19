@@ -58,17 +58,18 @@
                 $result["direction_0_text"] = $routeZero;
                 $result["direction_1_text"] = $routeOne;
 
-                $result = $this->processZero($result, $routeJson, $estJson);
-                $result = $this->processOne($result, $routeJson, $estJson);
+                $resultZero = $this->processZero($routeJson, $estJson);
+                $resultOne = $this->processOne($routeJson, $estJson);
 
-                return $result;
+                return array_merge($result, $resultZero, $resultOne);
             }
         }
 
-        private function processZero($result, $routeJson, $estJson) {
+        private function processZero($routeJson, $estJson) {
             $resultZeroIndex = 0;
             $dirZeroLen = count($routeJson["Direction_0"]);
             $estLen = count($estJson);
+            $result = array();
 
             for($routeIndex=0;$routeIndex<$dirZeroLen;$routeIndex++) {
                  $stopName = $routeJson["Direction_0"][$routeIndex];
@@ -106,10 +107,11 @@
             }
         }
 
-        private function processOne($result, $routeJson, $estJson) {
+        private function processOne($routeJson, $estJson) {
             $resultOneIndex = 0;
             $dirOneLen = count($routeJson["Direction_0"]);
             $estLen = count($estJson);
+            $result = array();
 
             for($routeIndex=0;$routeIndex<$dirOneLen;$routeIndex++) {
                 $stopName = $routeJson["Direction_1"][$routeIndex];
