@@ -113,8 +113,8 @@
 
                 $len = count($result);
 
-                //$res = $this->processRoute($result);
-
+                $res = $this->processRoute($result);
+                
                 $result = $res;
             }
             catch(GuzzleHttp\Exception\ServerException $e) {
@@ -126,7 +126,7 @@
                 }
             }
 
-            return $reqUrl;
+            return $result;
         }
 
         //get direction (取得去回程) e.g. 去程：台北到基隆 e.g. 基隆到台北
@@ -167,8 +167,8 @@
         private function processRoute($result) {
             $res = array();
                 
-            $directionGo = null;
-            $directionBack = null;
+            $directionGo = array();
+            $directionBack = array();
 
             $backNum = 0;
             $goNum = 0;
