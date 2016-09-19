@@ -126,7 +126,7 @@
                 }
             }
 
-            return $result;
+            return $reqUrl;
         }
 
         //get direction (取得去回程) e.g. 去程：台北到基隆 e.g. 基隆到台北
