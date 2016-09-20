@@ -130,7 +130,7 @@
                 $dataLen = count($dataLen);
                 srand();
                 $index = rand(0, $dataLen);
-                return $result[$index];
+                return $data[$index];
             }
             else {
                 return "https://valleytechnologies.net/wp-content/uploads/2015/07/error.png";
