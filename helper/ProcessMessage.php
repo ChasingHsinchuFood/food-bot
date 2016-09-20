@@ -132,6 +132,8 @@
                 for($index=0;$index<$dataLen;$index++) {
                     $result[$index] = $data[$index]["images"]["original"]["url"];
                 }
+                
+                shuffle($result);
                 $res = array_rand($result);
                 return $result[$res];
             }
