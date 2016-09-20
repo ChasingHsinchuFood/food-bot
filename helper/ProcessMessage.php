@@ -133,8 +133,7 @@
                     $result[$index] = $data[$index]["images"]["original"]["url"];
                 }
                 $res = array_rand($result);
-                file_put_contents("./url.txt", $res);
-                return $result[$res[0]];
+                return $result[$res];
             }
             else {
                 return "https://valleytechnologies.net/wp-content/uploads/2015/07/error.png";
