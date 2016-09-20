@@ -124,16 +124,13 @@
             $client = new Client();
             $response = $client->request("GET", $url);
             $json = json_decode($response->getBody(), true);
-            $result = array();
 
             if($json["meta"]["status"] == 200) {
                 $data = $json["data"];
                 $dataLen = count($dataLen);
-                for($index=0;$index<$dataLen;$index++) {
-                    $result[$index] = $data[$index]["images"]["original"]["url"];
-                }
-                $res = array_rand($result);
-                return $result[$res[0]];
+                srand();
+                $index = rand(0, $dataLen);
+                return $result[$index];
             }
             else {
                 return "https://valleytechnologies.net/wp-content/uploads/2015/07/error.png";
