@@ -127,7 +127,7 @@
             $dataLen = count($data);
             $result = array();
 
-            if($json["meta"]["status"] == 200) {
+            if($data["meta"]["status"] == 200) {
                 $data = $json["data"];
                 for($index=0;$index<$dataLen;$index++) {
                     $result[$index] = $data[$index]["images"]["original"]["url"];
