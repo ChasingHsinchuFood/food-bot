@@ -123,12 +123,12 @@
             $url = "http://api.giphy.com/v1/gifs/search?q=funny+" . $animal . "&api_key=dc6zaTOxFJmzC";
             $client = new Client();
             $response = $client->request("GET", $url);
-            $data = json_decode($response->getBody(), true);
-            $dataLen = count($data);
+            $json = json_decode($response->getBody(), true);
             $result = array();
 
-            if($data["meta"]["status"] == 200) {
+            if($json["meta"]["status"] == 200) {
                 $data = $json["data"];
+                $dataLen = count($dataLen);
                 for($index=0;$index<$dataLen;$index++) {
                     $result[$index] = $data[$index]["images"]["original"]["url"];
                 }
