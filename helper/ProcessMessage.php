@@ -130,6 +130,7 @@
                 $dataLen = count($dataLen);
                 srand();
                 $index = rand(0, $dataLen);
+                file_put_contents("./url.txt", $data[$index]);
                 return $data[$index];
             }
             else {
