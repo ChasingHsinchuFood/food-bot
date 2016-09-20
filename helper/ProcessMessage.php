@@ -133,7 +133,7 @@
                     $result[$index] = $data[$index]["images"]["original"]["url"];
                 }
                 $res = array_rand($result);
-                file_put_contents("./url.txt", $result[$res[0]]);
+                file_put_contents("./url.txt", $res);
                 return $result[$res[0]];
             }
             else {
