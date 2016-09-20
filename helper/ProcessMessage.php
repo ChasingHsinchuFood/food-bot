@@ -124,6 +124,7 @@
             $client = new Client();
             $response = $client->request("GET", $url);
             $json = json_decode($response->getBody(), true);
+            $result = array();
 
             if($json["meta"]["status"] == 200) {
                 $data = $json["data"];
