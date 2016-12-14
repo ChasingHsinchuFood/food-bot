@@ -24,7 +24,7 @@
                 ->write($contents);
         };
     };
-    
+
     $container['view'] = new \Slim\Views\PhpRenderer("../templates/");
 
     $container['logger'] = function($c) {
@@ -46,39 +46,39 @@
     });
 
     $app->get('/life-bot/webhook', function(Request $request, Response $response) {
-        global $builder;                                                                                                                                   
-        $result = $builder->verify("msg_token");   
+        global $builder;
+        $result = $builder->verify("msg_token");
         $response->getBody()->write($result);
     });
 
     $app->post('/life-bot/webhook', function(Request $request, Response $response) {
-        global $builder;                                                                                                                                   
-        $data = $builder->receiveMsg();                                                                                                                  
-                                                                                                                          
+        global $builder;
+        $data = $builder->receiveMsg();
+
         //get the graph sender id
-        if(isset($data['entry'][0]['messaging'][0]['sender']['id']))                                                                                                                     
-            $sender = $data['entry'][0]['messaging'][0]['sender']['id'];                                                                                       
-                                                                                                                                                               
-        //get the returned message                                                                                                                    
-        if(isset($data['entry'][0]['messaging'][0]['message']['text']))                                                                                  
-            $message = $data['entry'][0]['messaging'][0]['message']['text'];                                                                     
-        else if(isset($data['entry'][0]['messaging'][0]['message']['attachments'])) {                                                                     
+        if(isset($data['entry'][0]['messaging'][0]['sender']['id']))
+            $sender = $data['entry'][0]['messaging'][0]['sender']['id'];
+
+        //get the returned message
+        if(isset($data['entry'][0]['messaging'][0]['message']['text']))
+            $message = $data['entry'][0]['messaging'][0]['message']['text'];
+        else if(isset($data['entry'][0]['messaging'][0]['message']['attachments'])) {
             $message = $data['entry'][0]['messaging'][0]['message']['attachments'];
         }
         else if(isset($data['entry'][0]['messaging'][0]['postback'])) {
             $message = $data['entry'][0]['messaging'][0]['postback']['payload'];
         }
-        else {                                                                                                                                          
+        else {
             $message = "not-find.";
             $response->getBody()->write($message);
             return $response;
         }
 
-        $process = new ProcessMessage($message, $sender);                                                       
-        $json = $process->processText();                                                                                                                 
-                                                                                                                                                               
-        $body = array();                                                                                                                                
-        $body["recipient"]["id"] = $sender;                                                                                                                
+        $process = new ProcessMessage($message, $sender);
+        $json = $process->processText();
+
+        $body = array();
+        $body["recipient"]["id"] = $sender;
         $body["sender_action"] = "typing_on";
 
         $builder->statusBubble($body);
@@ -89,16 +89,16 @@
 
     $app->get('/life-bot/add/menus', function(Request $request, Response $response) {
         global $builder;
-        $menus = array(                                                                                                             
-            array(                                                                                                                                        
-                "type" => "postback",                                                                                                                     
-                "title" => "幫助",                                                                                                                  
-                "payload" => "need_your_help"                                                                            
-            ),                                                                                                                                            
-            array(                                                                                                                                        
-                "type" => "postback",                                                                                                                     
-                "title" => "城市對照表,公車動態用",                                                                                                     
-                "payload" => "city_lists"                                                                                        
+        $menus = array(
+            array(
+                "type" => "postback",
+                "title" => "幫助",
+                "payload" => "need_your_help"
+            ),
+            array(
+                "type" => "postback",
+                "title" => "城市對照表,公車動態用",
+                "payload" => "city_lists"
             ),
             array(
                 "type" => "postback",
@@ -119,15 +119,15 @@
             return $response;
         }
         else {
-            $newResponse = $response->withAddedHeader('Content-type', 'application/json');    
+            $newResponse = $response->withAddedHeader('Content-type', 'application/json');
             $newResponse->getBody()->write(json_encode($data));
             return $newResponse;
         }
     });
 
     $app->get('/life-bot/city_lists', function(Request $request, Response $response) {
-        $json = file_get_contents("../json/cities.json");                                                                                                  
-        $json = json_decode($json, true);                                                                                                                 
+        $json = file_get_contents("../json/cities.json");
+        $json = json_decode($json, true);
         $cities = $json["cities"];
         $message = "";
 
@@ -137,20 +137,20 @@
                 $message .= "<tr class='pure-table-odd'>";
             else
                 $message .= "<tr>";
-            
+
             foreach($value as $city => $en) {
                 $message .= "<td>" . $index . "</td>";
                 $message .= "<td>" . $city . "</td>";
                 $message .= "<td>" . $en . "</td>";
-                $index += 1;                                                                                
+                $index += 1;
             }
-            $message .= "</tr>";                                                      
+            $message .= "</tr>";
         }
-        
+
         $this->logger->addInfo("City lists");
         $cities = $message;
         $response = $this->view->render($response, "cities.phtml", ["cities" => $cities]);
-        
+
         return $response;
 
     });
@@ -197,9 +197,9 @@
 
         //$this->logger->addInfo("Dynamic City Bus");
         //$response = $this->view->render($response, "buses.phtml", ["buses" => $message]);
-        $newResponse = $response->withAddedHeader('Content-type', 'application/json');    
+        $newResponse = $response->withAddedHeader('Content-type', 'application/json');
         $newResponse->getBody()->write(json_encode($message));
-        
+
         return $newResponse;
     });
 
@@ -212,7 +212,7 @@
 
         $this->logger->addInfo("Inter City Bus");
         $response = $this->view->render($response, "buses.phtml", ["buses" => $message]);
-        
+
         return $response;
     });
 
