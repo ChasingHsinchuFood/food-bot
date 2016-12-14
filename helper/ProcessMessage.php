@@ -34,11 +34,11 @@
 
             if($this->message === "need_your_help") {
                 $message = "使用說明在下列網址：\n the command lists is about the following url:\n";
-                $message .= "https://peter-web.lionfree.net/life-bot/need_help";
+                $message .= "https://life-bot.ga/life-bot/need_help";
             }
             else if($this->message === "city_lists") {
                 $message = "城市清單在下列網址：\n the command lists is about the following url:\n";
-                $message .= "https://peter-web.lionfree.net/life-bot/city_lists";
+                $message .= "https://life-bot.ga/life-bot/city_lists";
             }
             else if($this->message === "give_me_dog_cat") {
                 srand();
@@ -51,7 +51,7 @@
             else if($this->message === "give_me_command_lists") {
                 $json = json_decode(file_get_contents("../json/usage.json"), true);
                 $usage = $json["usage"];
-                
+
                 $message = "useful commands,常用指令\n";
                 $len = count($usage);
 
@@ -84,7 +84,7 @@
             if(count($messages) === 3) {
                 if(mb_stristr($messages[0], "公車") != false || mb_stristr($messages[0], "bus") != false) {
                     $msg = "動態查詢服務已在下列網址完成。\n";
-                    $msg .= "https://peter-web.lionfree.net/life-bot/bus/city/" . $messages[1] . "/route" . "/" . $messages[2];
+                    $msg .= "https://life-bot.ga/life-bot/bus/city/" . $messages[1] . "/route" . "/" . $messages[2];
                     $json["message"]["text"] = $msg;
                 }
                 else {
@@ -94,7 +94,7 @@
             else if(count($messages) === 2) {
                 if(mb_stristr($messages[0], "客運") != false || mb_stristr($messages[0], "bus") != false) {
                     $msg = "動態公車詢服務已在下列網址完成。\n";
-                    $msg .= "https://peter-web.lionfree.net/life-bot/bus/inter-city/route" . "/" . $messages[1];
+                    $msg .= "https://life-bot.ga/life-bot/bus/inter-city/route" . "/" . $messages[1];
                     $json["message"]["text"] = $msg;
                 }
                 else {
@@ -132,7 +132,7 @@
                 for($index=0;$index<$dataLen;$index++) {
                     $result[$index] = $data[$index]["images"]["original"]["url"];
                 }
-                
+
                 shuffle($result);
                 $res = array_rand($result);
                 return $result[$res];
