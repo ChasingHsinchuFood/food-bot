@@ -21,3 +21,4 @@ A Messneger bot help you receive Taiwanese news, weather, dynamic bus informatio
 - complete the 台鐵(Taiwan railway) booking tickets.
 - complete the 客運(bus) booking tickets
 - using ML to train data and predict the user message.
+- food map (今天吃什麼？What food do you eat today?)
