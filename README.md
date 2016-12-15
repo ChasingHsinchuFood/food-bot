@@ -3,6 +3,12 @@ A Messneger bot help you receive Taiwanese news, weather, dynamic bus informatio
 
 # To do lists
 - complete the RSS news collection (Including the weather, tech news, google news and so on.).
+    
+    Including the tech news are: Tech news, BNEXT, ITHome and INSIDE
+    
+    Including the normal news: Google news or Yahoo news (only)
+    
+    Including the finance data on Yahoo finance.
 - complete the weather quering (Yahoo Weather).
 - complete the Governments RSS news.
 - complete dynamic bus service.
