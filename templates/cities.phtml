@@ -25,7 +25,7 @@
                         <th>英文名稱</th>
                     </tr>
                 </thead>
-                <tbody>{{ cities|raw }}</tbody>
+                <tbody>{{ cities|striptags('<tr>,<td>')|raw }}</tbody>
             </table>
         </div>
         </div>
