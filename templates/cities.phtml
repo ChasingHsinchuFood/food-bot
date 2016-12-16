@@ -25,7 +25,11 @@
                         <th>英文名稱</th>
                     </tr>
                 </thead>
-                <tbody>{{ cities|striptags('<tr>,<td>')|raw }}</tbody>
+                <tbody>
+                    {% autoescape false %}
+                    {{ cities }}
+                    {% endautoescape %}
+                </tbody>
             </table>
         </div>
         </div>
