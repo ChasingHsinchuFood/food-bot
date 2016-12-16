@@ -28,9 +28,7 @@
     // Register Twig View helper
 
     $container['view'] = function ($c) {
-        $view = new \Slim\Views\Twig('../templates', [
-            'cache' => 'path/to/cache'
-        ]);
+        $view = new \Slim\Views\Twig('../templates', []);
 
         // Instantiate and add Slim specific extension
 
