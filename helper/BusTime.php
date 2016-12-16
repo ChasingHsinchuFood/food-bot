@@ -1,4 +1,5 @@
 <?php
+
     use \GuzzleHttp\Client;
     use \GuzzleHttp\Psr7;
 
@@ -15,7 +16,7 @@
 
             $result = "server error happen,\nplease query after 15 seconds.\n
                 伺服器發生錯誤\n請過 15 秒再查詢，謝謝。";
-            
+
             try {
                 $client = new Client();
 
@@ -23,7 +24,7 @@
                     $reqUrl = "http://ptx.transportdata.tw/MOTC/v2/Bus/EstimatedTimeOfArrival/City/" . $msgs[1] . "/" . $msgs[2] . "?%24select=Direction%2CStopStatus%2CEstimateTime%2CStopName&%24format=JSON";
                 else
                     $reqUrl = "http://ptx.transportdata.tw/MOTC/v2/Bus/EstimatedTimeOfArrival/InterCity/" . $msgs[1] . "?%24select=Direction%2CStopStatus%2CEstimateTime%2CStopName&%24format=JSON";
-                
+
                 $response = $client->request("GET", $reqUrl);
                 $estJson = json_decode($response->getBody(), true);
                 $routeJson = $this->getBusRoute($msgs);
@@ -42,7 +43,7 @@
             }
 
             return $result;
-            
+
         }
 
         //輸出最後的 "table data"
@@ -77,11 +78,11 @@
                  for($estIndex=0;$estIndex<$estLen;$estIndex++) {
                      if($estJson[$estIndex]["Direction"] == 0 && $stopName == $estJson[$estIndex]["StopName"]["Zh_tw"]) {
                          $result["direction_0_stop_name"]["est_time"][$resultZeroIndex] = $estJson[$estIndex]["EstimateTime"];
-                         
+
                          if(isset($estJson[$estIndex]["StopStatus"])) {
                              switch($estJson[$estIndex]["StopStatus"]) {
                                 case 1:
-                                    $result["direction_0_stop_name"]["est_time"][$resultZeroIndex] = "尚未發車";     
+                                    $result["direction_0_stop_name"]["est_time"][$resultZeroIndex] = "尚未發車";
                                     break;
                                 case 2:
                                     $result["direction_0_stop_name"]["est_time"][$resultZeroIndex] = "交管不停靠";
@@ -94,7 +95,7 @@
                                     break;
                             }
                         }
-                        
+
                         $result["direction_0_stop_name"][$resultZeroIndex] = $stopName;
 
                         $resultZeroIndex += 1;
@@ -124,7 +125,7 @@
                         if(isset($estJson[$estIndex]["StopStatus"])) {
                             switch($estJson[$estIndex]["StopStatus"]) {
                                 case 1:
-                                    $result["direction_1_stop_name"]["est_time"][$resultOneIndex] = "尚未發車";     
+                                    $result["direction_1_stop_name"]["est_time"][$resultOneIndex] = "尚未發車";
                                     break;
                                 case 2:
                                     $result["direction_1_stop_name"]["est_time"][$resultOneIndex] = "交管不停靠";
@@ -172,7 +173,7 @@
                 $len = count($result);
 
                 $res = $this->processRoute($result);
-                
+
                 $result = $res;
             }
             catch(GuzzleHttp\Exception\ServerException $e) {
@@ -224,7 +225,7 @@
 
         private function processRoute($result) {
             $res = array();
-                
+
             $directionGo = array();
             $directionBack = array();
 

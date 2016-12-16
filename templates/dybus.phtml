@@ -17,11 +17,7 @@
         </div>
         <div class="content">
             <h2 class="content-subhead">動態公車表</h2>
-            <?php
-                if(isset($data["route_name"])) {
-                    echo $data["route_name"];
-                }
-            ?>
+            {{ route_name }}
             <table class="pure-table table-width">
                 <thead>
                     <tr>
@@ -30,15 +26,7 @@
                         <th>預估到站時間</th>
                     </tr>
                 </thead>
-                <tbody>
-
-                <?php
-                    if(isset($data["cities"])) {
-                        echo $data["cities"];
-                    }
-                ?>
-
-                </tbody>
+                <tbody>{{ cities }}</tbody>
             </table>
         </div>
         </div>
