@@ -34,11 +34,11 @@
 
             if($this->message === "need_your_help") {
                 $message = "使用說明在下列網址：\n the command lists is about the following url:\n";
-                $message .= "https://life-bot.ga/life-bot/need_help";
+                $message .= "https://lifebot.nttu.biz/life-bot/need_help";
             }
             else if($this->message === "city_lists") {
                 $message = "城市清單在下列網址：\n the command lists is about the following url:\n";
-                $message .= "https://life-bot.ga/life-bot/city_lists";
+                $message .= "https://lifebot.nttu.biz/life-bot/city_lists";
             }
             else if($this->message === "give_me_dog_cat") {
                 srand();
