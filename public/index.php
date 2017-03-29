@@ -29,7 +29,7 @@
 
     $container['view'] = function ($c) {
         $view = new \Slim\Views\Twig('../templates', [
-            'cache' => 'path/to/cache'
+            'cache' => './'
         ]);
 
         // Instantiate and add Slim specific extension
