@@ -26,16 +26,11 @@
             return $json;
         }
 
-        public function processGuessText($entitity) {
+        public function processGuessText($entitity, $term) {
             $json = array();
             $json["recipient"]["id"] = $this->sender;
 
             if($entitity == 'greeting') {
-                $json["message"]["text"] = 'Hi 你好阿！';
-                return $json;
-            }
-
-            if($entitity == 'datetime') {
                 $json["message"]["text"] = 'Hi 你好阿！';
                 return $json;
             }
@@ -48,7 +43,9 @@
 
             if($entitity == 'local_search_query') {
                 // local_search_query
-                $json["message"]["text"] = '';
+                $message = '你想要的結果已經在下面網址了\n';
+                $message .= 'https://hsinchu.life/eat_search_map/'.urlencode($term);
+                $json["message"]["text"] = $message;
                 return $json;
             }
         }

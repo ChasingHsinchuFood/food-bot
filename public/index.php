@@ -125,9 +125,10 @@
         //process the requested message(including nlp entity)
         $process = new ProcessMessage($message, $sender);
 
-        if(isset($data['entry'][0]['messaging'][0]['message']['nlp']['entities']['greeting'])) {
-            if($data['entry'][0]['messaging'][0]['message']['nlp']['entities']['greeting'][0]['confidence'] >= 0.9) {
-                $json = $process->processGuessText('greeting');
+        if(isset($data['entry'][0]['messaging'][0]['message']['nlp']['entities']['local_search_query'])) {
+            if($data['entry'][0]['messaging'][0]['message']['nlp']['entities']['local_search_query'][0]['confidence'] >= 0.9) {
+                $term = $data['entry'][0]['messaging'][0]['message']['nlp']['entities']['local_search_query'][0]['value'];
+                $json = $process->processGuessText('local_search_query', $term);
             } else {
                 $json = $process->processText();
             }
@@ -242,6 +243,45 @@
         $image = "<a href='".$mapUrl."' target='_blank'><img class='center-block img-responsive' src='".$image."'></a>";
 
         $response = $this->view->render($response, "map.phtml", ["map_image" => $image, "eat_map_random" => $message]);
+    });
+
+    // route randomly Hsinchu Food
+    $app->get('/eat_search_map/{term}', function(Request $request, Response $response) {
+
+        global $config;
+
+        $term = urldecode($args['term']);
+
+        $db = new Database($config);
+        $stmt = $db->prepare("SELECT DISTINCT * FROM `food_storages` WHERE `shop_name` LIKE '%:term%' ORDER BY RAND() LIMIT 1;");
+        $stmt->execute([':term' => $term]);
+
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if($stmt->rowCount() != 0) {
+            $address = $result['address'];
+            $phoneNumber = $result['phone_number'];
+            $rate = $result['rate'];
+            $shopName = $result['shop_name'];
+            $image = $result['static_map_image'];
+
+            $message = '<tr>';
+            $message .= '<td>'.$shopName.'</td>';
+            $message .= '<td>'.$address.'</td>';
+            $message .= '<td>'.$phoneNumber.'</td>';
+            $message .= '<td>'.$rate.'</td>';
+            $message .= '<td>'.'愛評網'.'</td>';
+            $message .= '</tr>';
+            $mapUrl = 'http://maps.google.com/?q='.urlencode($address);
+            $image = "<a href='".$mapUrl."' target='_blank'><img class='center-block img-responsive' src='".$image."'></a>";
+
+            $response = $this->view->render($response, "map.phtml", ["map_image" => $image, "eat_map_random" => $message]);
+        } else {
+            $response->getBody()->write("<h2>對不起，找不到你想要的：".$term."</h2>");
+
+            return $response;
+        }
+
     });
 
     $app->run();
