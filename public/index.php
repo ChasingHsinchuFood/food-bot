@@ -19,6 +19,8 @@
 
     $settings = $container->get('settings');
 
+    // The Slim Framework settings
+
     $settings->replace([
         'displayErrorDetails' => true,
         'determineRouteBeforeAppMiddleware' => true,
@@ -105,9 +107,16 @@
             return $response;
         }
 
+        //process the requested message
         $process = new ProcessMessage($message, $sender);
-        $process->handleEntity($data);
-        $json = $process->processText();
+
+        if(isset($data['nlp']['entities']['greetings'])) {
+            if($data['nlp']['entities']['greetings'] >= 0.9) {
+                $json["message"]["text"] = 'Hello!';
+            }
+        } else {
+            $json = $process->processText();
+        }
 
         $body = array();
         $body["recipient"]["id"] = $sender;
