@@ -246,7 +246,7 @@
     });
 
     // route randomly Hsinchu Food
-    $app->get('/eat_search_map/{term}', function(Request $request, Response $response) {
+    $app->get('/eat_search_map/{term}', function(Request $request, Response $response, $args) {
 
         global $config;
 

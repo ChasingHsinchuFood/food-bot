@@ -43,7 +43,7 @@
 
             if($entitity == 'local_search_query') {
                 // local_search_query
-                $message = '你想要的結果已經在下面網址了\n';
+                $message = "你想要的結果已經在下面網址了! \n";
                 $message .= 'https://hsinchu.life/eat_search_map/'.urlencode($term);
                 $json["message"]["text"] = $message;
                 return $json;
