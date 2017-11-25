@@ -62,6 +62,12 @@
     $tokens = json_decode(file_get_contents("./token/token.json"), true);
     $builder = new BotBuilder($tokens["token"], $tokens["page_token"]);
 
+    $app->get('/', function(Request $request, Response $response) {
+        $response->getBody()->write("<h1>歡迎來到追竹美食</h1><h2>目前版本為：v0.0.1</h2>");
+
+        return $response;
+    });
+
     $app->get('/term', function (Request $request, Response $response) {
         $response->getBody()->write("<h2>歡迎使用 food-bot(追竹美食) 請遵守Facebook Messenger 條款</h2>");
 
