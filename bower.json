@@ -1,7 +1,8 @@
 {
-	"name": "life-bot",
+	"name": "food-bot",
 	"version": "0.0.1",
 	"dependencies": {
-		"pure": "^0.6"
+        "jquery": "^2.2",
+        "bootstrap": "^3.3"
 	}
 }

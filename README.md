@@ -13,3 +13,9 @@ A Messneger bot help you selecting the Hsinchu food.
 
 - [Cat Hi](https://i.giphy.com/media/26u8ymPsDsnu1YWg8/giphy.webp)
 - [dog Hi](https://i.giphy.com/media/26u8ymPsDsnu1YWg8/giphy.webp)
+
+# Usage
+
+- ```composer install```
+- ```boerphp.phar install```
+- create the ```token.json``` in token folder and set the credentials for the messenger API token

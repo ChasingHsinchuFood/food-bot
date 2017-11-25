@@ -1,8 +1,9 @@
 <?php
-    require "../vendor/autoload.php";
+
+    require_once "../vendor/autoload.php";
 
     spl_autoload_register(function ($classname) {
-        require ("../helper/" . $classname . ".php");
+        require_once ("../helper/" . $classname . ".php");
     });
 
     use \Psr\Http\Message\ServerRequestInterface as Request;
@@ -230,4 +231,3 @@
 
     $app->run();
 
-?>
