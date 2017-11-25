@@ -20,7 +20,7 @@
     $settings = $container->get('settings');
 
     $settings->replace([
-        'displayErrorDetails' => false,
+        'displayErrorDetails' => true,
         'determineRouteBeforeAppMiddleware' => true,
         'debug' => true,
     ]);
