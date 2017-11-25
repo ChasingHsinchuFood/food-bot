@@ -111,7 +111,7 @@
         $process = new ProcessMessage($message, $sender);
 
         if(isset($data['nlp']['entities']['greetings'])) {
-            if($data['nlp']['entities']['greetings']['confidence'] >= 0.9) {
+            if($data['nlp']['entities']['greetings'][0]['confidence'] >= 0.9) {
                 $json["message"]["text"] = 'Hello!';
             } else {
                 $json["message"]["text"] = 'default logic.';
