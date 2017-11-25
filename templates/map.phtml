@@ -18,27 +18,23 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6">
-                {{ map_image|raw }}
-            </div>
+            {{ map_image|raw }}
         </div>
         <div class="row">
-            <div class="col-md-6">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <td>店家名稱</td>
-                            <td>地址</td>
-                            <td>電話</td>
-                            <td>評比（滿分：50）</td>
-                            <td>資料來源</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {{ eat_map_random|raw }}
-                    </tbody>
-                </table>
-            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td>店家名稱</td>
+                        <td>地址</td>
+                        <td>電話</td>
+                        <td>評比（滿分：50）</td>
+                        <td>資料來源</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{ eat_map_random|raw }}
+                </tbody>
+            </table>
         </div>
     </div>
 
