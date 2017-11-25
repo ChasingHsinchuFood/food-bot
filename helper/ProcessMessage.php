@@ -17,7 +17,8 @@
         public function processText() {
             $json = array();
             $json["recipient"]["id"] = $this->sender;
-            $json["message"]["text"] = '無此項目服務！';
+            $json["message"]["text"] = $this->processPostBack();
+
 
             return $json;
         }
@@ -44,7 +45,7 @@
                 $message .= "https://hsinchu.life/need_help";
             }
             else {
-                $message = "invalid post back.";
+                $message = "無此項目服務！";
             }
 
             return $message;
