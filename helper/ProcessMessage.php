@@ -30,8 +30,25 @@
             $json = array();
             $json["recipient"]["id"] = $this->sender;
 
-            if(array_search($entitity, $this->entities) == 0) {
+            if($entitity == $this->entities[0]) {
                 $json["message"]["text"] = 'Hi 你好阿！';
+                return $json;
+            }
+
+            if($entitity == $this->entities[1]) {
+                $json["message"]["text"] = 'Hi 你好阿！';
+                return $json;
+            }
+
+            if($entitity == $this->entities[2]) {
+                // location
+                $json["message"]["text"] = 'Hi 你好阿！';
+                return $json;
+            }
+
+            if($entitity == $this->entities[3]) {
+                // local_search_query
+                $json["message"]["text"] = '';
                 return $json;
             }
         }
