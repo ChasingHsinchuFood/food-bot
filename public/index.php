@@ -120,6 +120,18 @@
             } else {
                 $json = $process->processText();
             }
+        } else if(isset($data['entry'][0]['messaging'][0]['message']['nlp']['entities']['location'])) {
+            if($data['entry'][0]['messaging'][0]['message']['nlp']['entities']['location'][0]['confidence'] >= 0.9) {
+                $json = $process->processGuessText('location');
+            } else {
+                $json = $process->processText();
+            }
+        } else if(isset($data['entry'][0]['messaging'][0]['message']['nlp']['entities']['local_search_query'])) {
+            if($data['entry'][0]['messaging'][0]['message']['nlp']['entities']['local_search_query'][0]['confidence'] >= 0.9) {
+                $json = $process->processGuessText('local_search_query');
+            } else {
+                $json = $process->processText();
+            }
         } else {
             $json = $process->processText();
         }
@@ -206,6 +218,25 @@
         );
 
         $db = new Database($config);
+        $stmt = $db->prepare("SELECT DISTINCT * FROM `food_storages` ORDER BY RAND() LIMIT 1;");
+        $stmt->execute();
+
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        $address = $result['address'] == '' ? '從缺' : $result['address'];
+        $phoneNumber = $result['phone_number'] == '' ? '從缺' : $result['phone_number'];
+        $rate = $result['rate'] == '' ? '從缺' : $result['rate'];
+        $shopName = $result['shop_name'] == '' ? '從缺' : $result['shop_name'];
+        $image = $result['static_map_image'] == '' ? '從缺' : $result['static_map_image'];
+
+        $message = '<tr>';
+        $message += '<td>'.$address.'</td>';
+        $message += '<td>'.$phoneNumber.'</td>';
+        $message += '<td>'.$rate.'</td>';
+        $message += '<td>'.$shopName.'</td>';
+        $message += '<td>'.$image.'</td>';
+        $message += '</tr>';
+
         $response = $this->view->render($response, "map.phtml", ["eat_map_random" => $message]);
     });
 

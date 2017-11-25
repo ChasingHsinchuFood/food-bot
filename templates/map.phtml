@@ -14,14 +14,6 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <select id="travel">
-                    <option value="driving">開車</option>
-                    <option value="transit">大眾運輸</option>
-                </select>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
                 <div id="info"></div>
             </div>
         </div>
@@ -30,7 +22,21 @@
                 <div id="map" class="map"></div>
             </div>
             <div class="col-md-6">
-                <div id="panel"></div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td>店家名稱</td>
+                            <td>地址</td>
+                            <td>電話</td>
+                            <td>評比（滿分：50）</td>
+                            <td>店家位置圖</td>
+                            <td>資料來源</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{ eat_map_random|raw }}
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -39,51 +45,6 @@
 <script src="https://code.essoduke.org/js/tinyMap/jquery.tinyMap-3.3.14.min.js"></script>
 <script>
 (function () {
-
-    var map    = $('#map'),
-        marker = $('#info'),
-        panel  = $('#panel'),
-        info   = $('#info'),
-        // Direction data
-        data   = {
-            'from'  : '100台北市中正區南海路56 號',
-            'to'    : '111台北市士林區至善路二段221號',
-            'travel': 'driving',
-            'panel' : panel,
-            'event' : {
-                'directions_changed': function () {
-                    var direction = this.getDirections(),
-                        html = [];
-
-                    info.empty();
-
-                    // direction.routes[n] 表示第 N 段規劃的路徑
-                    // direction.routes[n].legs 該路段細節
-                    if (direction) {
-                        info.append(direction.routes[0].legs[0].distance.text)
-                            .append(direction.routes[0].legs[0].duration.text);
-                    }
-                }
-            }
-        };
-
-    // 初始化 tinyMap
-    map.tinyMap({
-        'center': ['25.037627167884715', '121.56732559204102'],
-        'zoom'  : 12,
-        'direction': [data]
-    });
-
-    $(document)
-        // 變更交通方式
-        .on('change', '#travel', function () {
-            data.travel = this.value;
-            panel.empty();
-            map.tinyMap('clear')
-               .tinyMap('modify', {
-                   'direction': [data]
-               });
-        })
 }());
 </script>
 </body>

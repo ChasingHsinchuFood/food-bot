@@ -17,18 +17,7 @@
         public function processText() {
             $json = array();
             $json["recipient"]["id"] = $this->sender;
-
-            $needle = "hello";
-
-            if(mb_stristr($this->message, $needle) != false) {
-                $json["message"]["attachment"]["type"] = "image";
-                $links = ['https://i.giphy.com/media/26u8ymPsDsnu1YWg8/giphy.webp',
-                    'https://i.giphy.com/media/26u8ymPsDsnu1YWg8/giphy.webp'];
-                $json["message"]["attachment"]["payload"]["url"] = $links[0];
-            }
-            else if(mb_strlen($this->message) <= 5) {
-                $json["message"]["text"] = "You have to input more texts so that I can understand what do you mean \n 你必須打更多的字好讓我看的懂！";
-            }
+            $json["message"]["text"] = '無此項目服務！';
 
             return $json;
         }
@@ -37,7 +26,7 @@
             $json = array();
             $json["recipient"]["id"] = $this->sender;
 
-            if($entitity == 'greeting') {
+            if(array_search($entitity, $this->entities) == 0) {
                 $json["message"]["text"] = 'Hi 你好阿！';
                 return $json;
             }
