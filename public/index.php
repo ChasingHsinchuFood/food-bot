@@ -236,7 +236,7 @@
         $message .= '<td>'.$rate.'</td>';
         $message .= '<td>'.'愛評網'.'</td>';
         $message .= '</tr>';
-        $image = "<img class='img-responsive' src='".$image."'>";
+        $image = "<img class='center-block img-responsive' src='".$image."'>";
 
         $response = $this->view->render($response, "map.phtml", ["map_image" => $image, "eat_map_random" => $message]);
     });
