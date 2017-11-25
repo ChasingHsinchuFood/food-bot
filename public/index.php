@@ -85,11 +85,10 @@
     });
 
     $app->post('/webhook', function(Request $request, Response $response) {
-
-        file_put_contents('../logs/msg.txt', $data);
-
         global $builder;
         $data = $builder->receiveMsg();
+
+        file_put_contents('../logs/msg.txt', $data);
 
         //get the graph sender id
         if(isset($data['entry'][0]['messaging'][0]['sender']['id'])) {
