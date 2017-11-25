@@ -124,15 +124,14 @@
 
         //process the requested message(including nlp entity)
         $process = new ProcessMessage($message, $sender);
-        $json = $process->processText();
-        /*
+
         if(isset($data['entry'][0]['messaging'][0]['message']['nlp']['entities']['greeting'])) {
             if($data['entry'][0]['messaging'][0]['message']['nlp']['entities']['greeting'][0]['confidence'] >= 0.9) {
                 $json = $process->processGuessText('greeting');
             } else {
                 $json = $process->processText();
             }
-        } else if(isset($data['entry'][0]['messaging'][0]['message']['nlp']['entities']['location'])) {
+        }/* else if(isset($data['entry'][0]['messaging'][0]['message']['nlp']['entities']['location'])) {
             if($data['entry'][0]['messaging'][0]['message']['nlp']['entities']['location'][0]['confidence'] >= 0.9) {
                 $json = $process->processGuessText('location');
             } else {
@@ -144,10 +143,9 @@
             } else {
                 $json = $process->processText();
             }
-        } else {
+        }*/ else {
             $json = $process->processText();
         }
-        */
 
         $body = array();
         $body["recipient"]["id"] = $sender;
