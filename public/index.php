@@ -15,6 +15,8 @@
 
     use \GuzzleHttp\Client;
 
+    use Dotenv\Dotenv;
+
     $container = new \Slim\Container();
 
     $settings = $container->get('settings');
@@ -109,14 +111,14 @@
             return $response;
         }
 
-        //process the requested message
+        //process the requested message(including nlp entity)
         $process = new ProcessMessage($message, $sender);
 
         if(isset($data['entry'][0]['messaging'][0]['message']['nlp']['entities']['greeting'])) {
             if($data['entry'][0]['messaging'][0]['message']['nlp']['entities']['greeting'][0]['confidence'] >= 0.9) {
-                $json["message"]["text"] = 'Hello!';
+                $json = $process->processGuessText('greeting');
             } else {
-                $json["message"]["text"] = 'default logic.';
+                $json = $process->processText();
             }
         } else {
             $json = $process->processText();
@@ -187,6 +189,24 @@
 
         $this->logger->addInfo('Need Help');
         $response = $this->view->render($response, "usage.phtml", ["help" => $message]);
+    });
+
+    // route randomly Hsinchu Food
+    $app->get('/eat_map', function(Request $request, Response $response) {
+
+        $dotenv = new Dotenv(__DIR__);
+        $dotenv->load();
+
+        $config = array(
+            'db_type' => getenv('driver'),
+            'db_host' => getenv('host'),
+            'db_name' => getenv('database'),
+            'db_username' => getenv('username'),
+            'db_password' => getenv('password'),
+        );
+
+        $db = new Database($config);
+        $response = $this->view->render($response, "map.phtml", ["eat_map_random" => $message]);
     });
 
     $app->run();

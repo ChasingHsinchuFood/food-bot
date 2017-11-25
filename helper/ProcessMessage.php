@@ -1,24 +1,17 @@
 <?php
     use \GuzzleHttp\Client;
-    use Dotenv\Dotenv;
 
     class ProcessMessage {
         private $confidence = null;
 
         private $entities = [
-            'greeting', 'wit/datetime',
-            'wit/location', 'wit/local_search_query',
+            'greeting', 'datetime',
+            'location', 'local_search_query',
         ];
 
         public function __construct($message, $sender) {
             $this->message =  strtolower($message);
             $this->sender = $sender;
-        }
-
-        public function handleEntity($data, $name) {
-            return isset($data['nlp']) && isset($data['nlp']['entities'])
-                && isset($data['nlp']['entities'][$name])
-                && isset($data['nlp']['entities'][$name][0]);
         }
 
         public function processText() {
@@ -40,22 +33,20 @@
             return $json;
         }
 
+        public function processGuessText($entitity) {
+            $json = array();
+            $json["recipient"]["id"] = $this->sender;
+
+            if($entitity == 'greeting') {
+                $json["message"]["text"] = 'Hi 你好阿！';
+                return $json;
+            }
+        }
+
         public function processPostBack() {
             $message = "";
 
-            $dotenv = new Dotenv(__DIR__);
-            $dotenv->load();
-
             if($this->message === "what_do_you_want_to_eat") {
-                $config = array(
-                    'db_type' => getenv('driver'),
-                    'db_host' => getenv('host'),
-                    'db_name' => getenv('database'),
-                    'db_username' => getenv('username'),
-                    'db_password' => getenv('password'),
-                );
-
-                $db = new Database($config);
                 $message = "使用說明在下列網址：\n the command lists is about the following url:\n";
                 $message .= "https://hsinchu.life/eat_map";
             }
