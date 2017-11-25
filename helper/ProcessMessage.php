@@ -25,13 +25,12 @@
             $json["recipient"]["id"] = $this->sender;
 
             $needle = "hello";
-            $needleTw = "你好";
 
             if(mb_stristr($this->message, $needle) != false) {
                 $json["message"]["attachment"]["type"] = "image";
                 $links = ['https://i.giphy.com/media/26u8ymPsDsnu1YWg8/giphy.webp',
                     'https://i.giphy.com/media/26u8ymPsDsnu1YWg8/giphy.webp'];
-                $json["message"]["attachment"]["payload"]["url"] = $links[array_rand($links)];
+                $json["message"]["attachment"]["payload"]["url"] = $links[0];
             }
             else if(mb_strlen($this->message) <= 5) {
                 $json["message"]["text"] = "You have to input more texts so that I can understand what do you mean \n 你必須打更多的字好讓我看的懂！";
@@ -60,13 +59,6 @@
             }
 
             return $message;
-        }
-
-        public function processImg() {
-            $json = array();
-            $json["recipient"]["id"] = $this->sender;
-            $json["message"]["text"] = "Sorry, this service is not available! \n 很抱歉，你說的這項服務我無法完成！";
-            return $json;
         }
 
         public function processFile() {
