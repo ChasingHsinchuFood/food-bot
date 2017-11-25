@@ -85,6 +85,9 @@
     });
 
     $app->post('/webhook', function(Request $request, Response $response) {
+
+        file_put_contents('../logs/msg.txt', $data);
+
         global $builder;
         $data = $builder->receiveMsg();
 
