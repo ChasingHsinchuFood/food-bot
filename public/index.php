@@ -59,7 +59,7 @@
 
     $app = new \Slim\App($container);
 
-    $tokens = json_decode(file_get_contents("./token/token.json"), true);
+    $tokens = json_decode(file_get_contents("../token/token.json"), true);
     $builder = new BotBuilder($tokens["token"], $tokens["page_token"]);
 
     $app->get('/', function(Request $request, Response $response) {
