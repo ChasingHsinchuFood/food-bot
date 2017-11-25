@@ -104,6 +104,7 @@
         }
 
         $process = new ProcessMessage($message, $sender);
+        $process->handleEntity($data);
         $json = $process->processText();
 
         $body = array();
@@ -113,7 +114,6 @@
         $builder->statusBubble($body);
 
         $res = $builder->sendMsg("texts", $data, $json);
-
     });
 
     $app->get('/add/menus', function(Request $request, Response $response) {
@@ -121,24 +121,14 @@
         $menus = array(
             array(
                 "type" => "postback",
-                "title" => "幫助",
-                "payload" => "need_your_help"
-            ),
-            array(
-                "type" => "postback",
-                "title" => "城市對照表,公車動態用",
-                "payload" => "city_lists"
-            ),
-            array(
-                "type" => "postback",
-                "title" => "給我一隻狗或貓",
-                "payload" => "give_me_dog_cat"
+                "title" => "今天吃什麼？",
+                "payload" => "what_do_you_want_to_eat"
             ),
             array(
                 "type" => "postback",
                 "title" => "給我常用指令清單",
                 "payload" => "give_me_command_lists"
-            )
+            ),
         );
 
         $data = $builder->addMenu($menus);
@@ -174,7 +164,6 @@
 
             $message .= "<td>" . $usage[$i]["cmd"] . "</td>";
             $message .= "<td>" . $usage[$i]["result"] . "</td>";
-            $message .= "<td>" . $usage[$i]["ps"] . "</td>";
 
             $message .= "</tr>";
 

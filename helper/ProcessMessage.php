@@ -2,9 +2,22 @@
     use \GuzzleHttp\Client;
 
     class ProcessMessage {
+        private $confidence = null;
+
+        private $entities = [
+            'greeting', 'wit/datetime',
+            'wit/location', 'wit/local_search_query',
+        ];
+
         public function __construct($message, $sender) {
             $this->message =  strtolower($message);
             $this->sender = $sender;
+        }
+
+        public function handleEntity($data, $name) {
+            return isset($data['nlp']) && isset($data['nlp']['entities'])
+                && isset($data['nlp']['entities'][$name])
+                && isset($data['nlp']['entities'][$name][0]);
         }
 
         public function processText() {
@@ -32,21 +45,13 @@
         public function processPostBack() {
             $message = "";
 
-            if($this->message === "need_your_help") {
+            if($this->message === "what_do_you_want_to_eat") {
                 $message = "使用說明在下列網址：\n the command lists is about the following url:\n";
                 $message .= "https://lifebot.nttu.biz/life-bot/need_help";
             }
             else if($this->message === "city_lists") {
                 $message = "城市清單在下列網址：\n the command lists is about the following url:\n";
                 $message .= "https://lifebot.nttu.biz/life-bot/city_lists";
-            }
-            else if($this->message === "give_me_dog_cat") {
-                srand();
-                $randNum = rand(0,999);
-                if($randNum % 2 !== 0)
-                    $message = $this->getGif("dog");
-                else
-                    $message = $this->getGif("cat");
             }
             else if($this->message === "give_me_command_lists") {
                 $json = json_decode(file_get_contents("../json/usage.json"), true);
