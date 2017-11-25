@@ -253,7 +253,7 @@
         $term = urldecode($args['term']);
 
         $db = new Database($config);
-        $stmt = $db->prepare("SELECT DISTINCT * FROM `food_storages` WHERE `shop_name` LIKE '%:term%' ORDER BY RAND() LIMIT 1;");
+        $stmt = $db->prepare("SELECT DISTINCT * FROM `food_storages` WHERE `shop_name` LIKE '%:term%' ORDER BY RAND() LIMIT 1;", [PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY]);
         $stmt->execute([':term' => $term]);
 
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
