@@ -17,8 +17,11 @@
         public function processText() {
             $json = array();
             $json["recipient"]["id"] = $this->sender;
-            $json["message"]["text"] = $this->processPostBack();
-
+            if($this->message === '你好') {
+                $json["message"]["text"] = '嗨，有什麼事可以為你效勞的嘛？';
+            } else {
+                $json["message"]["text"] = $this->processPostBack();
+            }
 
             return $json;
         }
