@@ -88,7 +88,7 @@
         global $builder;
         $data = $builder->receiveMsg();
 
-        file_put_contents('../logs/msg.txt', $data);
+        file_put_contents('../logs/msg.txt', json_encode($data));
 
         //get the graph sender id
         if(isset($data['entry'][0]['messaging'][0]['sender']['id'])) {
