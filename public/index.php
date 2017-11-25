@@ -236,7 +236,8 @@
         $message .= '<td>'.$rate.'</td>';
         $message .= '<td>'.'愛評網'.'</td>';
         $message .= '</tr>';
-        $image = "<img class='center-block img-responsive' src='".$image."'>";
+        $mapUrl = 'http://maps.google.com/?q='.urlencode($address);
+        $image = "<a href='".$mapUrl."' target='_blank'><img class='center-block img-responsive' src='".$image."'></a>";
 
         $response = $this->view->render($response, "map.phtml", ["map_image" => $image, "eat_map_random" => $message]);
     });
