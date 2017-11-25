@@ -40,7 +40,7 @@
             $message = "";
 
             if($this->message === "what_do_you_want_to_eat") {
-                $message = "使用說明在下列網址：\n the command lists is about the following url:\n";
+                $message = "為你推薦的美食在下面連結裡：\n";
                 $message .= "https://hsinchu.life/eat_map";
             }
             else if($this->message === "give_me_command_lists") {

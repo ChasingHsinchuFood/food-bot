@@ -17,6 +17,17 @@
 
     use Dotenv\Dotenv;
 
+    $dotenv = new Dotenv(__DIR__.'/..');
+    $dotenv->load();
+
+    $config = array(
+        'db_type' => getenv('driver'),
+        'db_host' => getenv('host'),
+        'db_name' => getenv('database'),
+        'db_username' => getenv('username'),
+        'db_password' => getenv('password'),
+    );
+
     $container = new \Slim\Container();
 
     $settings = $container->get('settings');
@@ -150,7 +161,7 @@
         $menus = array(
             array(
                 "type" => "postback",
-                "title" => "今天吃什麼？",
+                "title" => "請推薦美食",
                 "payload" => "what_do_you_want_to_eat"
             ),
             array(
@@ -206,16 +217,7 @@
     // route randomly Hsinchu Food
     $app->get('/eat_map', function(Request $request, Response $response) {
 
-        $dotenv = new Dotenv(__DIR__.'/..');
-        $dotenv->load();
-
-        $config = array(
-            'db_type' => getenv('driver'),
-            'db_host' => getenv('host'),
-            'db_name' => getenv('database'),
-            'db_username' => getenv('username'),
-            'db_password' => getenv('password'),
-        );
+        global $config;
 
         $db = new Database($config);
         $stmt = $db->prepare("SELECT DISTINCT * FROM `food_storages` WHERE `address` LIKE '%新竹市%' ORDER BY RAND() LIMIT 1;");
