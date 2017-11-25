@@ -28,7 +28,10 @@
             $needleTw = "你好";
 
             if(mb_stristr($this->message, $needle) != false) {
-                $json["message"]["text"] = "Hello! May I help you ? \n 嗨，有什麼事可以為你效勞的嘛？";
+                $json["message"]["attachment"]["type"] = "image";
+                $links = ['https://i.giphy.com/media/26u8ymPsDsnu1YWg8/giphy.webp',
+                    'https://i.giphy.com/media/26u8ymPsDsnu1YWg8/giphy.webp'];
+                $json["message"]["attachment"]["payload"]["url"] = $links[array_rand($links)];
             }
             else if(mb_strlen($this->message) <= 5) {
                 $json["message"]["text"] = "You have to input more texts so that I can understand what do you mean \n 你必須打更多的字好讓我看的懂！";
@@ -36,7 +39,6 @@
             else {
                 $messages = explode(",", $this->message);
                 $json = $this->processTextSplit($json, $messages);
-                //$json = $this->processWeather($json, $messages);
             }
 
             return $json;
@@ -47,7 +49,7 @@
 
             if($this->message === "what_do_you_want_to_eat") {
                 $message = "使用說明在下列網址：\n the command lists is about the following url:\n";
-                $message .= "https://lifebot.nttu.biz/life-bot/need_help";
+                $message .= "https://hsinchu.life/eat_map";
             }
             else if($this->message === "give_me_command_lists") {
                 $message = "使用說明在下列網址：\n";
