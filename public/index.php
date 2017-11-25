@@ -23,7 +23,7 @@
 
     $settings->replace([
         'displayErrorDetails' => true,
-        'determineRouteBeforeAppMiddleware' => true,
+        'determineRouteBeforeAppMiddleware' => false,
         'debug' => true,
     ]);
 
