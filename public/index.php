@@ -223,21 +223,22 @@
 
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        $address = $result['address'] == '' ? '從缺' : $result['address'];
-        $phoneNumber = $result['phone_number'] == '' ? '從缺' : $result['phone_number'];
-        $rate = $result['rate'] == '' ? '從缺' : $result['rate'];
-        $shopName = $result['shop_name'] == '' ? '從缺' : $result['shop_name'];
-        $image = $result['static_map_image'] == '' ? '從缺' : $result['static_map_image'];
+        $address = $result['address'];
+        $phoneNumber = $result['phone_number'];
+        $rate = $result['rate'];
+        $shopName = $result['shop_name'];
+        $image = $result['static_map_image'];
 
         $message = '<tr>';
+        $message += '<td>'.$shopName.'</td>';
         $message += '<td>'.$address.'</td>';
         $message += '<td>'.$phoneNumber.'</td>';
         $message += '<td>'.$rate.'</td>';
-        $message += '<td>'.$shopName.'</td>';
-        $message += '<td>'.$image.'</td>';
+        $message += '<td>'.'愛評網'.'</td>';
         $message += '</tr>';
+        $image = "<img class='img-responsive' src='".$image."'>";
 
-        $response = $this->view->render($response, "map.phtml", ["eat_map_random" => $message]);
+        $response = $this->view->render($response, "map.phtml", ["map_image" => $image, "eat_map_random" => $message]);
     });
 
     $app->run();
