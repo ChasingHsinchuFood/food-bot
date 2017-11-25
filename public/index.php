@@ -230,12 +230,12 @@
         $image = $result['static_map_image'];
 
         $message = '<tr>';
-        $message += '<td>'.$shopName.'</td>';
-        $message += '<td>'.$address.'</td>';
-        $message += '<td>'.$phoneNumber.'</td>';
-        $message += '<td>'.$rate.'</td>';
-        $message += '<td>'.'愛評網'.'</td>';
-        $message += '</tr>';
+        $message .= '<td>'.$shopName.'</td>';
+        $message .= '<td>'.$address.'</td>';
+        $message .= '<td>'.$phoneNumber.'</td>';
+        $message .= '<td>'.$rate.'</td>';
+        $message .= '<td>'.'愛評網'.'</td>';
+        $message .= '</tr>';
         $image = "<img class='img-responsive' src='".$image."'>";
 
         $response = $this->view->render($response, "map.phtml", ["map_image" => $image, "eat_map_random" => $message]);
