@@ -122,10 +122,12 @@
             return $response;
         }
 
-        //process the requested message(including nlp entity)
+        //process the requested message(including nlp entity)**
         $process = new ProcessMessage($message, $sender);
 
-        if(isset($data['entry'][0]['messaging'][0]['message']['nlp']['entities']['local_search_query'])) {
+        if($message === '你好') {
+            $json = $process->processText();
+        } else if(isset($data['entry'][0]['messaging'][0]['message']['nlp']['entities']['local_search_query'])) {
             if($data['entry'][0]['messaging'][0]['message']['nlp']['entities']['local_search_query'][0]['confidence'] >= 0.9) {
                 $term = $data['entry'][0]['messaging'][0]['message']['nlp']['entities']['local_search_query'][0]['value'];
                 $json = $process->processGuessText('local_search_query', $term);
