@@ -206,7 +206,7 @@
     // route randomly Hsinchu Food
     $app->get('/eat_map', function(Request $request, Response $response) {
 
-        $dotenv = new Dotenv(__DIR__);
+        $dotenv = new Dotenv(__DIR__.'/..');
         $dotenv->load();
 
         $config = array(
