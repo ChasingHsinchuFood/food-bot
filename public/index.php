@@ -50,6 +50,8 @@
         return $view;
     };
 
+    // remember the write permision for the app.log
+
     $container['logger'] = function($c) {
         $logger = new \Monolog\Logger('my_logger');
         $file_handler = new \Monolog\Handler\StreamHandler("../logs/app.log");

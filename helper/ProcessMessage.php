@@ -49,20 +49,9 @@
                 $message = "使用說明在下列網址：\n the command lists is about the following url:\n";
                 $message .= "https://lifebot.nttu.biz/life-bot/need_help";
             }
-            else if($this->message === "city_lists") {
-                $message = "城市清單在下列網址：\n the command lists is about the following url:\n";
-                $message .= "https://lifebot.nttu.biz/life-bot/city_lists";
-            }
             else if($this->message === "give_me_command_lists") {
-                $json = json_decode(file_get_contents("../json/usage.json"), true);
-                $usage = $json["usage"];
-
-                $message = "useful commands,常用指令\n";
-                $len = count($usage);
-
-                for($i=0;$i<$len;$i++) {
-                    $message .= "用法：" . $usage[$i]["ps"] . ";範例：" . $usage[$i]["cmd"] . "\n";
-                }
+                $message = "使用說明在下列網址：\n";
+                $message .= "https://hsinchu.life/need_help";
             }
             else {
                 $message = "invalid post back.";
