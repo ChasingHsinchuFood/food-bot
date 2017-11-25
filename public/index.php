@@ -156,7 +156,7 @@
 
         for($i=0;$i<$len;$i++) {
             if($index % 2 === 1) {
-                $message .= "<tr class='pure-table-odd'>";
+                $message .= "<tr>";
             }
             else {
                 $message .= "<tr>";
