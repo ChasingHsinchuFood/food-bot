@@ -2,6 +2,8 @@
 
     require_once "../vendor/autoload.php";
 
+    date_default_timezone_set('Asia/Taipei');
+
     spl_autoload_register(function ($classname) {
         require_once ("../helper/" . $classname . ".php");
     });
@@ -14,6 +16,14 @@
     use \GuzzleHttp\Client;
 
     $container = new \Slim\Container();
+
+    $settings = $container->get('settings');
+
+    $settings->replace([
+        'displayErrorDetails' => false,
+        'determineRouteBeforeAppMiddleware' => true,
+        'debug' => true,
+    ]);
 
     $container['notFoundHandler'] = function ($container) {
         //https://i.imgur.com/j7wPeJs.png
@@ -49,41 +59,41 @@
 
     $app = new \Slim\App($container);
 
-    $tokens = json_decode(file_get_contents("../token/token.json"), true);
+    $tokens = json_decode(file_get_contents("./token/token.json"), true);
     $builder = new BotBuilder($tokens["token"], $tokens["page_token"]);
 
-    $app->get('/life-bot/term', function (Request $request, Response $response) {
-        $response->getBody()->write("<h2>歡迎使用 life-bot 請遵守Facebook Messenger 條款</h2>");
+    $app->get('/term', function (Request $request, Response $response) {
+        $response->getBody()->write("<h2>歡迎使用 food-bot(追竹美食) 請遵守Facebook Messenger 條款</h2>");
 
         return $response;
     });
 
-    $app->get('/life-bot/webhook', function(Request $request, Response $response) {
+    $app->get('/webhook', function(Request $request, Response $response) {
         global $builder;
         $result = $builder->verify("msg_token");
         $response->getBody()->write($result);
     });
 
-    $app->post('/life-bot/webhook', function(Request $request, Response $response) {
+    $app->post('/webhook', function(Request $request, Response $response) {
         global $builder;
         $data = $builder->receiveMsg();
 
         //get the graph sender id
-        if(isset($data['entry'][0]['messaging'][0]['sender']['id']))
+        if(isset($data['entry'][0]['messaging'][0]['sender']['id'])) {
             $sender = $data['entry'][0]['messaging'][0]['sender']['id'];
+        }
 
         //get the returned message
-        if(isset($data['entry'][0]['messaging'][0]['message']['text']))
+        if(isset($data['entry'][0]['messaging'][0]['message']['text'])) {
             $message = $data['entry'][0]['messaging'][0]['message']['text'];
-        else if(isset($data['entry'][0]['messaging'][0]['message']['attachments'])) {
+        } else if(isset($data['entry'][0]['messaging'][0]['message']['attachments'])) {
             $message = $data['entry'][0]['messaging'][0]['message']['attachments'];
-        }
-        else if(isset($data['entry'][0]['messaging'][0]['postback'])) {
+        } else if(isset($data['entry'][0]['messaging'][0]['postback'])) {
             $message = $data['entry'][0]['messaging'][0]['postback']['payload'];
-        }
-        else {
+        } else {
             $message = "not-find.";
             $response->getBody()->write($message);
+
             return $response;
         }
 
@@ -100,7 +110,7 @@
 
     });
 
-    $app->get('/life-bot/add/menus', function(Request $request, Response $response) {
+    $app->get('/add/menus', function(Request $request, Response $response) {
         global $builder;
         $menus = array(
             array(
@@ -138,37 +148,7 @@
         }
     });
 
-    $app->get('/life-bot/city_lists', function(Request $request, Response $response) {
-        $json = file_get_contents("../json/cities.json");
-        $json = json_decode($json, true);
-        $cities = $json["cities"];
-        $message = "";
-
-        $index = 1;
-        foreach($cities as $key => $value) {
-            if($index % 2 === 1)
-                $message .= "<tr class='pure-table-odd'>";
-            else
-                $message .= "<tr>";
-
-            foreach($value as $city => $en) {
-                $message .= "<td>" . $index . "</td>";
-                $message .= "<td>" . $city . "</td>";
-                $message .= "<td>" . $en . "</td>";
-                $index += 1;
-            }
-            $message .= "</tr>";
-        }
-
-        $this->logger->addInfo("City lists");
-        $cities = $message;
-        $response = $this->view->render($response, "cities.phtml", ["cities" => $cities]);
-
-        return $response;
-
-    });
-
-    $app->get('/life-bot/need_help', function(Request $request, Response $response) {
+    $app->get('/need_help', function(Request $request, Response $response) {
         $help = "使用方法";
         $json = file_get_contents("../json/usage.json");
         $json = json_decode($json, true);
@@ -199,35 +179,4 @@
         $response = $this->view->render($response, "usage.phtml", ["help" => $message]);
     });
 
-    //query dynamic bus estimate time
-    $app->get('/life-bot/bus/city/{city_name}/route/{route_name}', function(Request $request, Response $response, $args) {
-        $cityName = $args["city_name"];
-        $routeName = $args["route_name"];
-
-        $messages = array("公車", $cityName, $routeName);
-        $busTime = new BusTime($messages);
-        $message = $busTime->getEstTime();
-
-        //$this->logger->addInfo("Dynamic City Bus");
-        //$response = $this->view->render($response, "buses.phtml", ["buses" => $message]);
-        $newResponse = $response->withAddedHeader('Content-type', 'application/json');
-        $newResponse->getBody()->write(json_encode($message));
-
-        return $newResponse;
-    });
-
-    $app->get('/life-bot/bus/inter-city/route/{route_name}', function(Request $request, Response $response, $args) {
-        $routeName = $args["route_name"];
-
-        $messages = array("客運", $routeName);
-        $busTime = new BusTime($messages);
-        $message = $busTime->getEstTime();
-
-        $this->logger->addInfo("Inter City Bus");
-        $response = $this->view->render($response, "buses.phtml", ["buses" => $message]);
-
-        return $response;
-    });
-
     $app->run();
-

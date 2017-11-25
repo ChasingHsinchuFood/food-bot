@@ -2,3 +2,4 @@ vendor
 *phar
 token.json
 bower_components
+token/
