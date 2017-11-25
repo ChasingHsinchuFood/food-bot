@@ -138,12 +138,6 @@
             } else {
                 $json = $process->processText();
             }
-        } else if(isset($data['entry'][0]['messaging'][0]['message']['nlp']['entities']['local_search_query'])) {
-            if($data['entry'][0]['messaging'][0]['message']['nlp']['entities']['local_search_query'][0]['confidence'] >= 0.9) {
-                $json = $process->processGuessText('local_search_query');
-            } else {
-                $json = $process->processText();
-            }
         }*/ else {
             $json = $process->processText();
         }
@@ -221,7 +215,7 @@
         global $config;
 
         $db = new Database($config);
-        $stmt = $db->prepare("SELECT DISTINCT * FROM `food_storages` WHERE `address` LIKE '%新竹市%' ORDER BY RAND() LIMIT 1;");
+        $stmt = $db->prepare("SELECT DISTINCT * FROM `food_storages` WHERE `address` LIKE '%新竹市%' AND `static_map_image` != '' ORDER BY RAND() LIMIT 1;");
         $stmt->execute();
 
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -253,7 +247,7 @@
         $term = urldecode($args['term']);
 
         $db = new Database($config);
-        $stmt = $db->prepare("SELECT DISTINCT * FROM `food_storages` WHERE `shop_name` LIKE concat('%', :term, '%') AND `address`  LIKE '%新竹市%' ORDER BY RAND() LIMIT 1;", [PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY]);
+        $stmt = $db->prepare("SELECT DISTINCT * FROM `food_storages` WHERE `shop_name` LIKE concat('%', :term, '%') AND `address`  LIKE '%新竹市%' AND `static_map_image` != '' ORDER BY RAND() LIMIT 1;", [PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY]);
         $stmt->execute([':term' => $term]);
 
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
