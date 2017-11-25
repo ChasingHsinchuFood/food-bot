@@ -20,7 +20,7 @@
             if($this->message === '你好') {
                 //$json["message"]["text"] = '嗨，有什麼事可以為你效勞的嘛？';
                 $json["message"]["attachment"]["type"] = "image";
-                $json["message"]["attachment"]["payload"]["url"] = 'https://i.giphy.com/media/26u8ymPsDsnu1YWg8/giphy.webp';
+                $json["message"]["attachment"]["payload"]["url"] = 'https://i.giphy.com/media/26u8ymPsDsnu1YWg8/giphy.gif';
             } else {
                 $json["message"]["text"] = $this->processPostBack();
             }
