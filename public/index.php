@@ -258,7 +258,7 @@
 
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if($stmt->rowCount() != 0) {
+        if(isset($result['address'])) {
             $address = $result['address'];
             $phoneNumber = $result['phone_number'];
             $rate = $result['rate'];
