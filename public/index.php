@@ -218,7 +218,7 @@
         );
 
         $db = new Database($config);
-        $stmt = $db->prepare("SELECT DISTINCT * FROM `food_storages` ORDER BY RAND() LIMIT 1;");
+        $stmt = $db->prepare("SELECT DISTINCT * FROM `food_storages` WHERE `address` LIKE '%新竹市%' ORDER BY RAND() LIMIT 1;");
         $stmt->execute();
 
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
