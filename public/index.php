@@ -165,6 +165,11 @@
             ),
             array(
                 "type" => "postback",
+                "title" => "請推薦伴手禮",
+                "payload" => "suggest_the_food_souvenir"
+            ),
+            array(
+                "type" => "postback",
                 "title" => "給我常用指令清單",
                 "payload" => "give_me_command_lists"
             ),
@@ -280,6 +285,38 @@
             return $response;
         }
 
+    });
+
+    // route randomly Hsinchu Food Souvenir
+    $app->get('/souvenir_map', function(Request $request, Response $response, $args) {
+
+        global $config;
+
+        $db = new Database($config);
+        $stmt = $db->prepare("SELECT DISTINCT * FROM `food_souvenirs` WHERE `address` != '' ORDER BY RAND() LIMIT 1;");
+        $stmt->execute();
+
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        $no = $result['no'];
+        $productName = $result['product_name'];
+        $shopName = $result['shop_name'];
+        $address = $result['address'];
+        $phoneNumber = $result['phone_number'];
+        $shopWebsite = $result['shop_website'];
+        $message = '<tr>';
+        $message .= '<td>'.$no.'</td>';
+        $message .= '<td>'.$productName.'</td>';
+        $message .= '<td>'.$shopName.'</td>';
+        $message .= '<td>'.$address.'</td>';
+        $message .= '<td>'.$phoneNumber.'</td>';
+        $message .= '<td>'.$shopWebsite.'</td>';
+        $message .= '</tr>';
+        $mapUrl = 'http://maps.google.com/?q='.urlencode($address);
+        $staticMapImg = 'https://maps.googleapis.com/maps/api/staticmap?center={address}&markers=color:red|{address}&zoom=12&size=600x400';
+        $staticMapImg = str_replace('{address}', urlencode($address), $staticMapImg);
+        $image = "<a href='".$mapUrl."' target='_blank'><img class='center-block img-responsive' src='".$staticMapImg."'></a>";
+        $response = $this->view->render($response, "souvenir.phtml", ["map_image" => $image, "souvenir_map_random" => $message]);
     });
 
     $app->run();

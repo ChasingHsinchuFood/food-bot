@@ -20,7 +20,8 @@
             if($this->message === '你好') {
                 //$json["message"]["text"] = '嗨，有什麼事可以為你效勞的嘛？';
                 srand(5);
-                $hiGif = ['https://i.giphy.com/media/L3nWlmgyqCeU8/giphy.gif', 'https://i.giphy.com/media/26u8ymPsDsnu1YWg8/giphy.gif'];
+                $hiGif = ['https://i.giphy.com/media/L3nWlmgyqCeU8/giphy.gif',
+                    'https://i.giphy.com/media/26u8ymPsDsnu1YWg8/giphy.gif'];
                 $gifUrl = rand(1, 5) % 2 == 1 ? $hiGif[1] : $hiGif[0];
                 $json["message"]["attachment"]["type"] = "image";
                 $json["message"]["attachment"]["payload"]["url"] = $gifUrl;
@@ -62,12 +63,16 @@
                 $message = "為你推薦的美食在下面連結裡：\n";
                 $message .= "https://hsinchu.life/eat_map";
             }
+            else if($this->message === "suggest_the_food_souvenir") {
+                $message = "為你推薦的伴手禮在下面連結裡：\n";
+                $message .= "https://hsinchu.life/souvenir_map";
+            }
             else if($this->message === "give_me_command_lists") {
                 $message = "使用說明在下列網址：\n";
                 $message .= "https://hsinchu.life/need_help";
             }
             else {
-                $message = "無此項目服務！";
+                $message = "很抱歉，您的服務我無法完成！";
             }
 
             return $message;
