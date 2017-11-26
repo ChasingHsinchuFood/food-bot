@@ -11,8 +11,8 @@ A Messneger bot help you selecting the Hsinchu food.
 
 # Greeting message
 
-- [Cat Hi](https://i.giphy.com/media/26u8ymPsDsnu1YWg8/giphy.webp)
-- [dog Hi](https://i.giphy.com/media/26u8ymPsDsnu1YWg8/giphy.webp)
+- [Cat Hi](https://i.giphy.com/media/L3nWlmgyqCeU8/giphy.gif)
+- [dog Hi](https://i.giphy.com/media/26u8ymPsDsnu1YWg8/giphy.gif)
 
 # Usage
 

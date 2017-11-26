@@ -19,8 +19,11 @@
             $json["recipient"]["id"] = $this->sender;
             if($this->message === '你好') {
                 //$json["message"]["text"] = '嗨，有什麼事可以為你效勞的嘛？';
+                srand(5);
+                $hiGif = ['https://i.giphy.com/media/L3nWlmgyqCeU8/giphy.gif', 'https://i.giphy.com/media/26u8ymPsDsnu1YWg8/giphy.gif'];
+                $gifUrl = rand(1, 5) % 2 == 1 ? $hiGif[1] : $hiGif[0];
                 $json["message"]["attachment"]["type"] = "image";
-                $json["message"]["attachment"]["payload"]["url"] = 'https://i.giphy.com/media/26u8ymPsDsnu1YWg8/giphy.gif';
+                $json["message"]["attachment"]["payload"]["url"] = $gifUrl;
             } else {
                 $json["message"]["text"] = $this->processPostBack();
             }
