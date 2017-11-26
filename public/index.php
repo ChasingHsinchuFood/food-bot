@@ -313,8 +313,9 @@
         $message .= '<td>'.$shopWebsite.'</td>';
         $message .= '</tr>';
         $mapUrl = 'http://maps.google.com/?q='.urlencode($address);
-        $staticMapImg = 'https://maps.googleapis.com/maps/api/staticmap?center={address}&markers=color:red|{address}&zoom=12&size=600x400';
+        $staticMapImg = 'https://maps.googleapis.com/maps/api/staticmap?center={address}&markers=color:red|{address}&zoom=12&size=600x400&key={key}';
         $staticMapImg = str_replace('{address}', urlencode($address), $staticMapImg);
+        $staticMapImg = str_replace('{key}', getenv('map_api_key'), $staticMapImg);
         $image = "<a href='".$mapUrl."' target='_blank'><img class='center-block img-responsive' src='".$staticMapImg."'></a>";
         $response = $this->view->render($response, "souvenir.phtml", ["map_image" => $image, "souvenir_map_random" => $message]);
     });
